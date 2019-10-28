@@ -27,4 +27,4 @@ diohabara's CPU, or dCPU
 - For RISC-V
   - <https://riscv.org/>
 - For CPU
-  - <https://toshiba.semicon-storage.com/jp/design-support/e-learning/micro_intro/>
+  - JPN...<https://toshiba.semicon-storage.com/jp/design-support/e-learning/micro_intro/>
