@@ -51,7 +51,7 @@ module decoder(
                     else if (ir[14:12] == 3'b101 && ir[31:25] == 7'b0100000)begin
                         imm[4:0] <= ir[24:20];
                     end
-                0110111:
+                0110011:
                     if (ir[14:12] == 3'b000 && ir[31:25] == 7'b0) begin
                     end
                     else if (ir[14:12] == 3'b000 && ir[31:25] == 7'b0100000) begin
@@ -97,14 +97,19 @@ module decoder(
                     end
                 0000011:
                     if (ir[14:12] == 3'b000) begin
+                        imm[11:0] <= ir[31:20];
                     end
                     else if (ir[14:12] == 3'b001) begin
+                        imm[11:0] <= ir[31:20];
                     end
                     else if (ir[14:12] == 3'b010) begin
+                        imm[11:0] <= ir[31:20];
                     end
                     else if (ir[14:12] == 3'b100) begin
+                        imm[11:0] <= ir[31:20];
                     end
                     else if (ir[14:12] == 3'b101) begin
+                        imm[11:0] <= ir[31:20];
                     end
                 default: begin
                 end
