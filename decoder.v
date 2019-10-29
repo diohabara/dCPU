@@ -23,12 +23,12 @@ module decoder (
     always @(*) begin
         case (ir[6:0])
             `OPIMM: begin
+                aluop1_type <= `OP_TYPE_REG;
+                aluop2_type <= `OP_TYPE_IMM;
                 reg_we <= `ENABLE;
                 is_load <= `DISABLE;
                 is_store <= `DISABLE;
                 is_halt <= `DISABLE;
-                aluop1_type <= `OP_TYPE_REG;
-                aluop2_type <= `OP_TYPE_IMM;
                 if (ir[14:12] == 3'b000) begin
                     alucode <= `ALU_ADD;
                     imm_reg[11:0] <= ir[31:20];
@@ -86,12 +86,13 @@ module decoder (
                 end
             end
             `OP: begin
+                aluop1_type <= `OP_TYPE_REG;
+                aluop2_type <= `OP_TYPE_REG;
                 reg_we <= `ENABLE;
                 is_load <= `DISABLE;
                 is_store <= `DISABLE;
                 is_halt <= `DISABLE;
-                aluop1_type <= `OP_TYPE_REG;
-                aluop2_type <= `OP_TYPE_REG;
+                imm_reg[31:0] <= 32'b0;
                 if (ir[31:25] == 7'b0000001) begin
                     if (ir[14:12] == 3'b000) begin
                         // alucode <= ALU_MUL;
@@ -206,12 +207,12 @@ module decoder (
                 end
             end
             `LUI: begin
+                aluop1_type <= `OP_TYPE_REG;
+                aluop2_type <= `OP_TYPE_PC;
                 reg_we <= `DISABLE;
                 is_load <= `DISABLE;
                 is_store <= `DISABLE;
                 is_halt <= `DISABLE;
-                aluop1_type <= `OP_TYPE_REG;
-                aluop2_type <= `OP_TYPE_PC;
                 rd[4:0] <= ir[11:7];
                 imm_reg[31:12] <= ir[31:12];
                 r1[4:0] <= ir[19:15];
@@ -228,12 +229,12 @@ module decoder (
                 r1[4:0] <= ir[19:15];
             end
             `JAL: begin
+                aluop1_type <= `OP_TYPE_PC;
+                aluop2_type <= `OP_TYPE_IMM;
                 reg_we <= `DISABLE;
                 is_load <= `DISABLE;
                 is_store <= `DISABLE;
                 is_halt <= `DISABLE;
-                aluop1_type <= `OP_TYPE_PC;
-                aluop2_type <= `OP_TYPE_IMM;
                 rd[4:0] <= ir[11:7];
                 imm_reg[20] <= ir[31];
                 imm_reg[10:1] <= ir[30:21];
@@ -242,23 +243,23 @@ module decoder (
                 r1[4:0] <= ir[19:15];
             end
             `JALR: begin
+                aluop1_type <= `OP_TYPE_REG;
+                aluop2_type <= `OP_TYPE_IMM;
                 reg_we <= `DISABLE;
                 is_load <= `DISABLE;
                 is_store <= `DISABLE;
                 is_halt <= `DISABLE;
-                aluop1_type <= `OP_TYPE_REG;
-                aluop2_type <= `OP_TYPE_IMM;
                 rd[4:0] <= ir[11:7];
                 imm_reg[11:0] <= ir[31:20];
                 r1[4:0] <= ir[19:15];
             end
             `BRANCH: begin
+                aluop1_type <= `OP_TYPE_PC;
+                aluop2_type <= `OP_TYPE_IMM;
                 reg_we <= `DISABLE;
                 is_load <= `DISABLE;
                 is_store <= `DISABLE;
                 is_halt <= `DISABLE;
-                aluop1_type <= `OP_TYPE_PC;
-                aluop2_type <= `OP_TYPE_IMM;
                 if (ir[14:12] == 3'b000) begin
                     alucode <= `ALU_BEQ;
                     imm_reg[12] <= ir[31];
@@ -315,12 +316,12 @@ module decoder (
                 end
             end
             `STORE: begin
+                aluop1_type <= `OP_TYPE_REG;
+                aluop2_type <= `OP_TYPE_REG;
                 reg_we <= `DISABLE;
                 is_load <= `DISABLE;
                 is_store <= `ENABLE;
                 is_halt <= `DISABLE;
-                aluop1_type <= `OP_TYPE_REG;
-                aluop2_type <= `OP_TYPE_REG;
                 if (ir[14:12] == 3'b000) begin
                     alucode <= `ALU_SB;
                     imm_reg[11:5] <= ir[31:25];
@@ -344,12 +345,12 @@ module decoder (
                 end
             end
             `LOAD: begin
+                aluop1_type <= `OP_TYPE_REG;
+                aluop2_type <= `OP_TYPE_IMM;
                 reg_we <= `ENABLE;
                 is_load <= `ENABLE;
                 is_store <= `DISABLE;
                 is_halt <= `DISABLE;
-                aluop1_type <= `OP_TYPE_REG;
-                aluop2_type <= `OP_TYPE_IMM;
                 if (ir[14:12] == 3'b000) begin
                     alucode <= `ALU_LB;
                     imm_reg[11:0] <= ir[31:20];
