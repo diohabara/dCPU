@@ -52,25 +52,45 @@ module decoder(
                         imm[4:0] <= ir[24:20];
                     end
                 0110011:
-                    if (ir[14:12] == 3'b000 && ir[31:25] == 7'b0) begin
+                    if (ir[31:25] == 7b'0000001) begin
+                        if (ir[14:12] == 3'b000) begin
+                        end
+                        else if (ir[14:12] == 3'b001) begin
+                        end
+                        else if (ir[14:12] == 3'b010) begin
+                        end
+                        else if (ir[14:12] == 3'b011) begin
+                        end
+                        else if (ir[14:12] == 3'b100) begin
+                        end
+                        else if (ir[14:12] == 3'b101) begin
+                        end
+                        else if (ir[14:12] == 3'b110) begin
+                        end
+                        else if (ir[14:12] == 3'b111) begin
+                        end
                     end
-                    else if (ir[14:12] == 3'b000 && ir[31:25] == 7'b0100000) begin
-                    end
-                    else if (ir[14:12] == 3'b001) begin
-                    end
-                    else if (ir[14:12] == 3'b010) begin
-                    end
-                    else if (ir[14:12] == 3'b011) begin
-                    end
-                    else if (ir[14:12] == 3'b100) begin
-                    end
-                    else if (ir[14:12] == 3'b101 && ir[31:25] == 7'b0) begin
-                    end
-                    else if (ir[14:12] == 3'b101 && ir[31:25] == 7'b0100000) begin
-                    end
-                    else if (ir[14:12] == 3'b110) begin
-                    end
-                    else if (ir[14:12] == 3'b111) begin
+                    else begin
+                        if (ir[14:12] == 3'b000 && ir[31:25] == 7'b0) begin
+                        end
+                        else if (ir[14:12] == 3'b000 && ir[31:25] == 7'b0100000) begin
+                        end
+                        else if (ir[14:12] == 3'b001) begin
+                        end
+                        else if (ir[14:12] == 3'b010) begin
+                        end
+                        else if (ir[14:12] == 3'b011) begin
+                        end
+                        else if (ir[14:12] == 3'b100) begin
+                        end
+                        else if (ir[14:12] == 3'b101 && ir[31:25] == 7'b0) begin
+                        end
+                        else if (ir[14:12] == 3'b101 && ir[31:25] == 7'b0100000) begin
+                        end
+                        else if (ir[14:12] == 3'b110) begin
+                        end
+                        else if (ir[14:12] == 3'b111) begin
+                        end
                     end
                 0110111:
                 0010111:
