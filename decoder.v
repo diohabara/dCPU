@@ -28,6 +28,8 @@ module decoder(
                     is_store <= DISABLE;
                     is_load <= DISABLE;
                     is_halt <= DISABLE;
+                    aluop1_type <= OP_TYPE_REG;
+                    aluop2_type <= OP_TYPE_IMM;
                     if (ir[14:12] == 3'b000) begin
                         alucode <= ALU_ADD;
                         imm[11:0] <= ir[31:20];
@@ -87,6 +89,8 @@ module decoder(
                     is_store <= DISABLE;
                     is_load <= DISABLE;
                     is_halt <= DISABLE;
+                    aluop1_type <= OP_TYPE_REG;
+                    aluop2_type <= OP_TYPE_REG;
                     if (ir[31:25] == 7'b0000001) begin
                         if (ir[14:12] == 3'b000) begin
                             alucode <= ALU_MUL;
@@ -205,6 +209,8 @@ module decoder(
                     is_store <= DISABLE;
                     is_load <= DISABLE;
                     is_halt <= DISABLE;
+                    aluop1_type <= OP_TYPE_REG;
+                    aluop2_type <= OP_TYPE_PC;
                     dstreg_num[4:0] <= ir[11:7];
                     imm[31:12] <= ir[31:12];
                     srcreg1_num[4:0] <= ir[19:5];
@@ -213,6 +219,8 @@ module decoder(
                     is_store <= DISABLE;
                     is_load <= DISABLE;
                     is_halt <= DISABLE;
+                    aluop1_type <= OP_TYPE_PC;
+                    aluop2_type <= OP_TYPE_IMM;
                     dstreg_num[4:0] <= ir[11:7];
                     imm[31:12] <= ir[31:12];
                     srcreg1_num[4:0] <= ir[19:5];
@@ -221,6 +229,8 @@ module decoder(
                     is_store <= DISABLE;
                     is_load <= DISABLE;
                     is_halt <= DISABLE;
+                    aluop1_type <= OP_TYPE_PC;
+                    aluop2_type <= OP_TYPE_IMM;
                     dstreg_num[4:0] <= ir[11:7];
                     imm[20] <= ir[31];
                     imm[10:1] <= ir[30:21];
@@ -232,6 +242,8 @@ module decoder(
                     is_store <= DISABLE;
                     is_load <= DISABLE;
                     is_halt <= DISABLE;
+                    aluop1_type <= OP_TYPE_REG;
+                    aluop2_type <= OP_TYPE_IMM;
                     dstreg_num[4:0] <= ir[11:7];
                     imm[11:0] <= ir[31:20];
                     srcreg1_num[4:0] <= ir[19:5];
@@ -240,6 +252,8 @@ module decoder(
                     is_store <= DISABLE;
                     is_load <= DISABLE;
                     is_halt <= DISABLE;
+                    aluop1_type <= OP_TYPE_PIC;
+                    aluop2_type <= OP_TYPE_IMM;
                     if (ir[14:12] == 3'b000) begin
                         alucode <= ALU_BEQ;
                         imm[12] <= ir[31];
@@ -299,6 +313,8 @@ module decoder(
                     is_load <= DISABLE;
                     is_store <= ENABLE;
                     is_halt <= DISABLE;
+                    aluop1_type <= OP_TYPE_REG;
+                    aluop2_type <= OP_TYPE_REG;
                     if (ir[14:12] == 3'b000) begin
                         alucode <= ALU_SB;
                         imm[11:5] <= ir[31:25];
@@ -325,6 +341,8 @@ module decoder(
                     is_load <= ENABLE;
                     is_store <= DISABLE;
                     is_halt <= DISABLE;
+                    aluop1_type <= OP_TYPE_REG;
+                    aluop2_type <= OP_TYPE_IMM;
                     if (ir[14:12] == 3'b000) begin
                         alucode <= ALU_LB;
                         imm[11:0] <= ir[31:20];
