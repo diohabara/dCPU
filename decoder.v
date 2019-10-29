@@ -193,12 +193,10 @@ module decoder(
                         end
                     end
                 LUI:
-                    alucode <= ALU_LUI;
                     dstreg_num[4:0] <= ir[11:7];
                     imm[31:12] <= ir[31:12];
                     srcreg1_num[4:0] <= ir[19:5];
                 AUIPC:
-                    alucode <= ALU_
                     dstreg_num[4:0] <= ir[11:7];
                     imm[31:12] <= ir[31:12];
                     srcreg1_num[4:0] <= ir[19:5];
@@ -215,6 +213,7 @@ module decoder(
                     srcreg1_num[4:0] <= ir[19:5];
                 BRANCH:
                     if (ir[14:12] == 3'b000) begin
+                        alucode <= ALU_BEQ;
                         imm[12] <= ir[31];
                         imm[10:5] <= ir[30:25];
                         imm[4:1] <= ir[25:21];
@@ -223,6 +222,7 @@ module decoder(
                         srcreg2_num[4:0] <= ir[24:20];
                     end
                     else if (ir[14:12] == 3'b001) begin
+                        alucode <= ALU_BNE;
                         imm[12] <= ir[31];
                         imm[10:5] <= ir[30:25];
                         imm[4:1] <= ir[25:21];
@@ -231,6 +231,7 @@ module decoder(
                         srcreg2_num[4:0] <= ir[24:20];
                     end
                     else if (ir[14:12] == 3'b100) begin
+                        alucode <= ALU_BLT;
                         imm[12] <= ir[31];
                         imm[10:5] <= ir[30:25];
                         imm[4:1] <= ir[25:21];
@@ -239,6 +240,7 @@ module decoder(
                         srcreg2_num[4:0] <= ir[24:20];
                     end
                     else if (ir[14:12] == 3'b101) begin
+                        alucode <= ALU_BGE;
                         imm[12] <= ir[31];
                         imm[10:5] <= ir[30:25];
                         imm[4:1] <= ir[25:21];
@@ -247,6 +249,7 @@ module decoder(
                         srcreg2_num[4:0] <= ir[24:20];
                     end
                     else if (ir[14:12] == 3'b110) begin
+                        alucode <= ALU_BLTU;
                         imm[12] <= ir[31];
                         imm[10:5] <= ir[30:25];
                         imm[4:1] <= ir[25:21];
@@ -255,6 +258,7 @@ module decoder(
                         srcreg2_num[4:0] <= ir[24:20];
                     end
                     else if (ir[14:12] == 3'b111) begin
+                        alucode <= ALU_BGEU;
                         imm[12] <= ir[31];
                         imm[10:5] <= ir[30:25];
                         imm[4:1] <= ir[25:21];
@@ -264,18 +268,21 @@ module decoder(
                     end
                 STORE:
                     if (ir[14:12] == 3'b000) begin
+                        alucode <= ALU_SB;
                         imm[11:5] <= ir[31:25];
                         imm[4:0] <= ir[11:7];
                         srcreg1_num[4:0] <= ir[19:5];
                         srcreg2_num[4:0] <= ir[24:20];
                     end
                     else if (ir[14:12] == 3'b001) begin
+                        alucode <= ALU_SH;
                         imm[11:5] <= ir[31:25];
                         imm[4:0] <= ir[11:7];
                         srcreg1_num[4:0] <= ir[19:5];
                         srcreg2_num[4:0] <= ir[24:20];
                     end
                     else if (ir[14:12] == 3'b010) begin
+                        alucode <= ALU_SW;
                         imm[11:5] <= ir[31:25];
                         imm[4:0] <= ir[11:7];
                         srcreg1_num[4:0] <= ir[19:5];
@@ -283,26 +290,31 @@ module decoder(
                     end
                 LOAD:
                     if (ir[14:12] == 3'b000) begin
+                        alucode <= ALU_LB;
                         imm[11:0] <= ir[31:20];
                         dstreg_num[4:0] <= ir[11:7];
                         srcreg1_num[4:0] <= ir[19:5];
                     end
                     else if (ir[14:12] == 3'b001) begin
+                        alucode <= ALU_LH;
                         imm[11:0] <= ir[31:20];
                         dstreg_num[4:0] <= ir[11:7];
                         srcreg1_num[4:0] <= ir[19:5];
                     end
                     else if (ir[14:12] == 3'b010) begin
+                        alucode <= ALU_LW;
                         imm[11:0] <= ir[31:20];
                         dstreg_num[4:0] <= ir[11:7];
                         srcreg1_num[4:0] <= ir[19:5];
                     end
                     else if (ir[14:12] == 3'b100) begin
+                        alucode <= ALU_LBU;
                         imm[11:0] <= ir[31:20];
                         dstreg_num[4:0] <= ir[11:7];
                         srcreg1_num[4:0] <= ir[19:5];
                     end
                     else if (ir[14:12] == 3'b101) begin
+                        alucode <= ALU_LHU;
                         imm[11:0] <= ir[31:20];
                         dstreg_num[4:0] <= ir[11:7];
                         srcreg1_num[4:0] <= ir[19:5];
