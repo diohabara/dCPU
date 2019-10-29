@@ -9,7 +9,7 @@ module decoder(
     output reg   [5:0]	alucode,      // ALUの演算種別
     output reg   [1:0]	aluop1_type,  // ALUの入力タイプ
     output reg   [1:0]	aluop2_type,  // ALUの入力タイプ
-    output reg	     	reg_we,       // レジスタ書き込みの有無
+    output reg	    reg_we,       // レジスタ書き込みの有無
     output reg		is_load,      // ロード命令判定フラグ
     output reg		is_store,     // ストア命令判定フラグ
     output reg      is_halt  // flag to halt
