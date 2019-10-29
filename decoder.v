@@ -24,8 +24,8 @@ module decoder (
         case (ir[6:0])
             `OPIMM: begin
                 reg_we <= `ENABLE;
-                is_store <= `DISABLE;
                 is_load <= `DISABLE;
+                is_store <= `DISABLE;
                 is_halt <= `DISABLE;
                 aluop1_type <= `OP_TYPE_REG;
                 aluop2_type <= `OP_TYPE_IMM;
@@ -87,8 +87,8 @@ module decoder (
             end
             `OP: begin
                 reg_we <= `ENABLE;
-                is_store <= `DISABLE;
                 is_load <= `DISABLE;
+                is_store <= `DISABLE;
                 is_halt <= `DISABLE;
                 aluop1_type <= `OP_TYPE_REG;
                 aluop2_type <= `OP_TYPE_REG;
@@ -207,8 +207,8 @@ module decoder (
             end
             `LUI: begin
                 reg_we <= `DISABLE;
-                is_store <= `DISABLE;
                 is_load <= `DISABLE;
+                is_store <= `DISABLE;
                 is_halt <= `DISABLE;
                 aluop1_type <= `OP_TYPE_REG;
                 aluop2_type <= `OP_TYPE_PC;
@@ -218,8 +218,8 @@ module decoder (
             end
             `AUIPC: begin
                 reg_we <= `DISABLE;
-                is_store <= `DISABLE;
                 is_load <= `DISABLE;
+                is_store <= `DISABLE;
                 is_halt <= `DISABLE;
                 aluop1_type <= `OP_TYPE_PC;
                 aluop2_type <= `OP_TYPE_IMM;
@@ -229,8 +229,8 @@ module decoder (
             end
             `JAL: begin
                 reg_we <= `DISABLE;
-                is_store <= `DISABLE;
                 is_load <= `DISABLE;
+                is_store <= `DISABLE;
                 is_halt <= `DISABLE;
                 aluop1_type <= `OP_TYPE_PC;
                 aluop2_type <= `OP_TYPE_IMM;
@@ -243,8 +243,8 @@ module decoder (
             end
             `JALR: begin
                 reg_we <= `DISABLE;
-                is_store <= `DISABLE;
                 is_load <= `DISABLE;
+                is_store <= `DISABLE;
                 is_halt <= `DISABLE;
                 aluop1_type <= `OP_TYPE_REG;
                 aluop2_type <= `OP_TYPE_IMM;
@@ -254,8 +254,8 @@ module decoder (
             end
             `BRANCH: begin
                 reg_we <= `DISABLE;
-                is_store <= `DISABLE;
                 is_load <= `DISABLE;
+                is_store <= `DISABLE;
                 is_halt <= `DISABLE;
                 aluop1_type <= `OP_TYPE_PC;
                 aluop2_type <= `OP_TYPE_IMM;
