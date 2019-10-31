@@ -282,7 +282,7 @@ module decoder (
         endcase
 
         if (ir[6:0] == `OPIMM) begin
-            if (alucode == `ALU_SLL || `ALU_SRL)
+            if (alucode == `ALU_SLL || alucode == `ALU_SRL)
                 imm_tmp = {{27{imm5[4]}}, imm5[4:0]};
             else if (alucode == `ALU_SRA)
                 imm_tmp = {{27{imm5[4]}}, imm5[4:0]};
