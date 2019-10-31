@@ -9,20 +9,27 @@ module alu(
     );
 
 
-    reg [31:0] r1;
-    reg [31:0] r2;
+    reg [31:0] rs1;
+    reg [31:0] rs2;
     reg [31:0] rd;
 
     always @(*) begin
+        rs1 <= op1;
+        rs2 <= op2;
         case (alucode[5:0])
             `ALU_ADD:
+                rd <= rs1 + rs2;
             `ALU_SUB:
+                rd <= rs1 + rs2;
             `ALU_SLT:
             `ALU_SLTU:
             `ALU_XOR:
+            `ALU_OR:
+            `ALU_AND:
             `ALU_SLL:
             `ALU_SRL:
             `ALU_SRA:
+            `ALU_LUI:
             `ALU_JAL:
             `ALU_JALR:
             `ALU_BEQ:
@@ -38,10 +45,10 @@ module alu(
             `ALU_SB:
             `ALU_SH:
             `ALU_SW:
-            `ALU_LUI:
             default:;
         endcase
     end
-    assign
+
+    assign alu_result = br_taken == 0 ? rd : br_taken;
 
 endmodule
