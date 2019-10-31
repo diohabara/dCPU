@@ -39,6 +39,7 @@ module alu(
             `ALU_SH:
             `ALU_SW:
             `ALU_LUI:
+            default:;
         endcase
     end
     assign
