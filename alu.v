@@ -14,7 +14,7 @@ module alu(
     reg [31:0] rd;
 
     always @(*) begin
-        case(alucode[5:0])
+        case (alucode[5:0])
             `ALU_ADD:
             `ALU_SUB:
             `ALU_SLT:
