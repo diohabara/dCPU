@@ -74,7 +74,7 @@ module alu_tb;
         op2 = 32'hFEEDFACE;
         #10;
         `test("ALU_XOR", 32'h443151d0, `DISABLE)
-        
+
         code = `ALU_OR;
         op1 = 32'hBADCAB1E;
         op2 = 32'hFEEDFACE;
