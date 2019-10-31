@@ -15,10 +15,15 @@ module decoder (
     output reg      is_halt  // flag to halt
     );
 
-    reg[4:0] r1;
-    reg[4:0] r2;
-    reg[4:0] rd;
-    reg[31:0] imm_reg;
+    reg [4:0] r1;
+    reg [4:0] r2;
+    reg [4:0] rd;
+    reg [4:0] imm5;
+    reg [11:0] imm12;
+    reg [12:0] imm13;
+    reg [20:0] imm21;
+    reg [32:0] imm32;
+    reg [32:0] imm_reg;
 
     always @(*) begin
         case (ir[6:0])
@@ -32,41 +37,36 @@ module decoder (
                 r1[4:0] <= ir[19:15];
                 r2[4:0] <= 5'b0;
                 rd[4:0] <= ir[11:7];
+                imm12[11:0] <= ir[31:20];
                 if (ir[14:12] == 3'b000) begin
                     alucode <= `ALU_ADD;
-                    imm_reg[11:0] <= ir[31:20];
                 end
                 else if (ir[14:12] == 3'b010) begin
                     alucode <= `ALU_SLT;
-                    imm_reg[11:0] <= ir[31:20];
                 end
                 else if (ir[14:12] == 3'b011) begin
                     alucode <= `ALU_SLTU;
-                    imm_reg[11:0] <= ir[31:20];
                 end
                 else if (ir[14:12] == 3'b100) begin
                     alucode <= `ALU_XOR;
-                    imm_reg[11:0] <= ir[31:20];
                 end
                 else if (ir[14:12] == 3'b110) begin
                     alucode <= `ALU_OR;
-                    imm_reg[11:0] <= ir[31:20];
                 end
                 else if (ir[14:12] == 3'b111) begin
                     alucode <= `ALU_AND;
-                    imm_reg[11:0] <= ir[31:20];
                 end
-                else if (ir[14:12] == 3'b001) begin
-                    alucode <= `ALU_SLL;
-                    imm_reg[4:0] <= ir[24:20];
-                end
-                else if (ir[14:12] == 3'b101 && ir[31:25] == 7'b0)begin
-                    alucode <= `ALU_SRL;
-                    imm_reg[4:0] <= ir[24:20];
-                end
-                else if (ir[14:12] == 3'b101 && ir[31:25] == 7'b0100000)begin
-                    alucode <= `ALU_SRA;
-                    imm_reg[4:0] <= ir[24:20];
+                else begin
+                    imm5[4:0] <= ir[24:20];
+                    if (ir[14:12] == 3'b001) begin
+                        alucode <= `ALU_SLL;
+                    end
+                    else if (ir[14:12] == 3'b101 && ir[31:25] == 7'b0)begin
+                        alucode <= `ALU_SRL;
+                    end
+                    else if (ir[14:12] == 3'b101 && ir[31:25] == 7'b0100000)begin
+                        alucode <= `ALU_SRA;
+                    end
                 end
             end
             `OP: begin
@@ -76,7 +76,7 @@ module decoder (
                 is_load <= `DISABLE;
                 is_store <= `DISABLE;
                 is_halt <= `DISABLE;
-                imm_reg[31:0] <= 32'b0;
+                imm32[31:0] <= 32'b0;
                 r1[4:0] <= ir[19:15];
                 r2[4:0] <= ir[24:20];
                 rd[4:0] <= ir[11:7];
@@ -106,6 +106,7 @@ module decoder (
                     // else if (ir[14:12] == 3'b111) begin
                     //     alucode <= ALU_REMU;
                     // end
+                    // else;
                 end
                 else begin
                     if (ir[14:12] == 3'b000 && ir[31:25] == 7'b0) begin
@@ -138,6 +139,7 @@ module decoder (
                     else if (ir[14:12] == 3'b111) begin
                         alucode <= `ALU_AND;
                     end
+                    else;
                 end
             end
             `LUI: begin
@@ -147,7 +149,7 @@ module decoder (
                 is_load <= `DISABLE;
                 is_store <= `DISABLE;
                 is_halt <= `DISABLE;
-                imm_reg[31:12] <= ir[31:12];
+                imm32[31:12] <= ir[31:12];
                 r1[4:0] <= ir[19:15];
                 r2[4:0] <= 5'b0;
                 rd[4:0] <= ir[11:7];
@@ -159,7 +161,7 @@ module decoder (
                 is_halt <= `DISABLE;
                 aluop1_type <= `OP_TYPE_PC;
                 aluop2_type <= `OP_TYPE_IMM;
-                imm_reg[31:12] <= ir[31:12];
+                imm32[31:12] <= ir[31:12];
                 r1[4:0] <= ir[19:15];
                 r2[4:0] <= 5'b0;
                 rd[4:0] <= ir[11:7];
@@ -171,10 +173,10 @@ module decoder (
                 is_load <= `DISABLE;
                 is_store <= `DISABLE;
                 is_halt <= `DISABLE;
-                imm_reg[20] <= ir[31];
-                imm_reg[10:1] <= ir[30:21];
-                imm_reg[11] <= ir[20];
-                imm_reg[19:12] <= ir[19:12];
+                imm21[20] <= ir[31];
+                imm21[10:1] <= ir[30:21];
+                imm21[11] <= ir[20];
+                imm21[19:12] <= ir[19:12];
                 r1[4:0] <= ir[19:15];
                 r2[4:0] <= 5'b0;
                 rd[4:0] <= ir[11:7];
@@ -186,7 +188,7 @@ module decoder (
                 is_load <= `DISABLE;
                 is_store <= `DISABLE;
                 is_halt <= `DISABLE;
-                imm_reg[11:0] <= ir[31:20];
+                imm12[11:0] <= ir[31:20];
                 r1[4:0] <= ir[19:15];
                 r2[4:0] <= 5'b0;
                 rd[4:0] <= ir[11:7];
@@ -198,10 +200,10 @@ module decoder (
                 is_load <= `DISABLE;
                 is_store <= `DISABLE;
                 is_halt <= `DISABLE;
-                imm_reg[12] <= ir[31];
-                imm_reg[10:5] <= ir[30:25];
-                imm_reg[4:1] <= ir[25:21];
-                imm_reg[11] <= ir[20];
+                imm13[12] <= ir[31];
+                imm13[10:5] <= ir[30:25];
+                imm13[4:1] <= ir[25:21];
+                imm13[11] <= ir[20];
                 r1[4:0] <= ir[19:15];
                 r2[4:0] <= ir[24:20];
                 rd[4:0] <= 5'b0;
@@ -223,6 +225,7 @@ module decoder (
                 else if (ir[14:12] == 3'b111) begin
                     alucode <= `ALU_BGEU;
                 end
+                else;
             end
             `STORE: begin
                 aluop1_type <= `OP_TYPE_REG;
@@ -231,8 +234,8 @@ module decoder (
                 is_load <= `DISABLE;
                 is_store <= `ENABLE;
                 is_halt <= `DISABLE;
-                imm_reg[11:5] <= ir[31:25];
-                imm_reg[4:0] <= ir[11:7];
+                imm12[11:5] <= ir[31:25];
+                imm12[4:0] <= ir[11:7];
                 r1[4:0] <= ir[19:15];
                 r2[4:0] <= ir[24:20];
                 rd[4:0] <= 5'b0;
@@ -245,6 +248,7 @@ module decoder (
                 else if (ir[14:12] == 3'b010) begin
                     alucode <= `ALU_SW;
                 end
+                else;
             end
             `LOAD: begin
                 aluop1_type <= `OP_TYPE_REG;
@@ -253,7 +257,7 @@ module decoder (
                 is_load <= `ENABLE;
                 is_store <= `DISABLE;
                 is_halt <= `DISABLE;
-                imm_reg[11:0] <= ir[31:20];
+                imm12[11:0] <= ir[31:20];
                 r1[4:0] <= ir[19:15];
                 r2[4:0] <= 5'b0;
                 rd[4:0] <= ir[11:7];
@@ -272,9 +276,34 @@ module decoder (
                 else if (ir[14:12] == 3'b101) begin
                     alucode <= `ALU_LHU;
                 end
+                else;
             end
             default: ;
         endcase
+        if (ir[6:0] == `OPIMM) begin
+            if (imm12 != 12'b0)
+                assign imm_reg <= {{12{imm12[11]}}, imm12};
+            else
+                assign imm_reg <= {{5{imm5[4]}}, imm5};
+        end
+        else if (ir[6:0] == `OP)
+            assign imm_reg <= 32'b0;
+        else if (ir[6:0] == `LUI)
+            assign imm_reg <= imm32;
+        else if (ir[6:0] == `AUIPC)
+            assign imm_reg <= {{21{imm21[20]}}, imm21};
+        else if (ir[6:0] == `JAL)
+            assign imm_reg <= {{12{imm12[11]}}, imm12};
+        else if (ir[6:0] == `JALR)
+            assign imm_reg <= {{13{imm13[12]}}, imm13};
+        else if (ir[6:0] == `BRANCH)
+            assign imm_reg <= {{13{imm13[12]}}, imm13};
+        else if (ir[6:0] == `STORE)
+            assign imm_reg <= {{12{imm12[11]}}, imm12};
+        else if (ir[6:0] == `LOAD)
+            assign imm_reg <= {{12{imm12[11]}}, imm12};
+        else;
+        end
     end
     assign srcreg1_num = r1;
     assign srcreg2_num = r2;
