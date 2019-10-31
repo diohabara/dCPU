@@ -9,84 +9,87 @@ module alu(
     );
 
 
-    reg [31:0] rs1;
-    reg [31:0] rs2;
-    reg [31:0] rd;
+    reg [31:0] op1_tmp;
+    reg [31:0] op2_tmp;
+    reg [31:0] res_tmp;
     reg isBranch;
 
     always @(*) begin
-        rs1 <= op1;
-        rs2 <= op2;
+        op1_tmp <= op1;
+        op2_tmp <= op2;
         case (alucode[5:0])
             `ALU_ADD:
-                rd <= rs1 + rs2;
+                res_tmp <= op1_tmp + op2_tmp;
             `ALU_SUB:
-                rd <= rs1 + rs2;
+                res_tmp <= op1_tmp - op2_tmp;
             `ALU_SLT: begin
-                if (rs1 < rs2)
-                    rd <= 1;
+                if (op1_tmp < op2_tmp)
+                    res_tmp <= 1;
                 else
-                    rd <= 0;
+                    res_tmp <= 0;
                 end
             `ALU_SLTU: begin
-                if (rs1 < rs2)
-                    rd <= 1;
+                if (op1_tmp < op2_tmp)
+                    res_tmp <= 1;
                 else
-                    rd <= 0;
+                    res_tmp <= 0;
                 end
             `ALU_XOR:
-                rd <= rs1 ^ rs2;
+                res_tmp <= op1_tmp ^ op2_tmp;
             `ALU_OR:
-                rd <= rs1 | rs2;
+                res_tmp <= op1_tmp | op2_tmp;
             `ALU_AND:
-                rd <= rs1 & rs2;
+                res_tmp <= op1_tmp & op2_tmp;
             `ALU_SLL:
-                rd <= rs1 <<< rs2;
+                res_tmp <= op1_tmp <<< op2_tmp;
             `ALU_SRL:
-                rd <= rs1 <<< rs2;
+                res_tmp <= op1_tmp <<< op2_tmp;
             `ALU_SRA:
-                rd <= rs1 << rs1;
+                res_tmp <= op1_tmp << op1_tmp;
             `ALU_LUI:
-                rd <= rs2;
+                res_tmp <= op2_tmp;
             `ALU_JAL:
-                rd <= rs2 + 4;
+                res_tmp <= op2_tmp + 4;
                 isBranch <= `ENABLE;
             `ALU_JALR:
-                rd <= rs2 + 4;
+                res_tmp <= op2_tmp + 4;
                 isBranch <= `ENABLE;
             `ALU_BEQ:
-                if (rs1 == rs2)
+                if (op1_tmp == op2_tmp)
                     isBranch <= `ENABLE;
                 else
                     isBranch <= `DISABLE;
             `ALU_BNE:
-                if (rs1 != rs2)
+                if (op1_tmp != op2_tmp)
                     isBranch <= `ENABLE;
                 else
                     isBranch <= `DISABLE;
             `ALU_BLT:
-                if (rs1 < rs2)
+                if (op1_tmp < op2_tmp)
                     isBranch <= `ENABLE;
                 else
                     isBranch <= `DISABLE;
             `ALU_BGE:
-                if (rs1 >= rs2)
+                if (op1_tmp >= op2_tmp)
                     isBranch <= `ENABLE;
                 else
                     isBranch <= `DISABLE;
             `ALU_BLTU:
-                if (rs1 < rs2)
+                if (op1_tmp < op2_tmp)
                     isBranch <= `ENABLE;
                 else
                     isBranch <= `DISABLE;
             `ALU_BGEU:
-                if (rs1 >= rs2)
+                if (op1_tmp >= op2_tmp)
                     isBranch <= `ENABLE;
                 else
                     isBranch <= `DISABLE;
             `ALU_SB:
+                res_tmp = op1_tmp + op2_tmp;
             `ALU_SH:
+                res_tmp = op1_tmp + op2_tmp;
             `ALU_SW:
+                res_tmp = op1_tmp + op2_tmp;
             `ALU_LB:
             `ALU_LH:
             `ALU_LW:
@@ -96,6 +99,6 @@ module alu(
         endcase
     end
 
-    assign alu_result = br_taken == 0 ? rd : br_taken;
+    assign alu_result = br_taken == 0 ? res_tmp : br_taken;
 
 endmodule
