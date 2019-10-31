@@ -31,7 +31,7 @@ module decoder (
                 is_halt <= `DISABLE;
                 r1[4:0] <= ir[19:15];
                 r2[4:0] <= 5'b0;
-                rd[11:0] <= ir[31:20];
+                rd[4:0] <= ir[11:7];
                 if (ir[14:12] == 3'b000) begin
                     alucode <= `ALU_ADD;
                     imm_reg[11:0] <= ir[31:20];
