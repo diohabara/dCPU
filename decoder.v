@@ -198,8 +198,8 @@ module decoder (
                 rd[4:0] <= ir[11:7];
             end
             `BRANCH: begin
-                aluop1_type <= `OP_TYPE_PC;
-                aluop2_type <= `OP_TYPE_IMM;
+                aluop1_type <= `OP_TYPE_REG;
+                aluop2_type <= `OP_TYPE_REG;
                 reg_we <= `DISABLE;
                 is_load <= `DISABLE;
                 is_store <= `DISABLE;
@@ -208,7 +208,7 @@ module decoder (
                 imm13[10:5] <= ir[30:25];
                 imm13[4:1] <= ir[11:8];
                 imm13[11] <= ir[7];
-                imm[0] <= 1'b0;
+                imm13[0] <= 1'b0;
                 r1[4:0] <= ir[19:15];
                 r2[4:0] <= ir[24:20];
                 rd[4:0] <= 5'b0;
