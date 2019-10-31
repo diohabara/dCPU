@@ -143,33 +143,36 @@ module decoder (
                 end
             end
             `LUI: begin
-                aluop1_type <= `OP_TYPE_REG;
-                aluop2_type <= `OP_TYPE_PC;
-                reg_we <= `DISABLE;
+                alucode <= 0;
+                aluop1_type <= `OP_TYPE_NONE;
+                aluop2_type <= `OP_TYPE_IMM;
+                reg_we <= `ENABLE;
                 is_load <= `DISABLE;
                 is_store <= `DISABLE;
                 is_halt <= `DISABLE;
                 imm32[31:12] <= ir[31:12];
-                r1[4:0] <= ir[19:15];
+                r1[4:0] <= 0;
                 r2[4:0] <= 5'b0;
                 rd[4:0] <= ir[11:7];
             end
             `AUIPC: begin
-                reg_we <= `DISABLE;
+                alucode <= `ALU_ADD;
+                reg_we <= `ENABLE;
                 is_load <= `DISABLE;
                 is_store <= `DISABLE;
                 is_halt <= `DISABLE;
-                aluop1_type <= `OP_TYPE_PC;
-                aluop2_type <= `OP_TYPE_IMM;
+                aluop1_type <= `OP_TYPE_IMM;
+                aluop2_type <= `OP_TYPE_PC;
                 imm32[31:12] <= ir[31:12];
-                r1[4:0] <= ir[19:15];
+                r1[4:0] <= 0;
                 r2[4:0] <= 5'b0;
                 rd[4:0] <= ir[11:7];
             end
             `JAL: begin
+                alucode <= 0;
                 aluop1_type <= `OP_TYPE_PC;
                 aluop2_type <= `OP_TYPE_IMM;
-                reg_we <= `DISABLE;
+                reg_we <= `ENABLE;
                 is_load <= `DISABLE;
                 is_store <= `DISABLE;
                 is_halt <= `DISABLE;
@@ -182,9 +185,10 @@ module decoder (
                 rd[4:0] <= ir[11:7];
             end
             `JALR: begin
+                alucode <= 0;
                 aluop1_type <= `OP_TYPE_REG;
                 aluop2_type <= `OP_TYPE_IMM;
-                reg_we <= `DISABLE;
+                reg_we <= `ENABLE;
                 is_load <= `DISABLE;
                 is_store <= `DISABLE;
                 is_halt <= `DISABLE;
@@ -202,8 +206,9 @@ module decoder (
                 is_halt <= `DISABLE;
                 imm13[12] <= ir[31];
                 imm13[10:5] <= ir[30:25];
-                imm13[4:1] <= ir[25:21];
-                imm13[11] <= ir[20];
+                imm13[4:1] <= ir[11:8];
+                imm13[11] <= ir[7];
+                imm[0] <= 1'b0;
                 r1[4:0] <= ir[19:15];
                 r2[4:0] <= ir[24:20];
                 rd[4:0] <= 5'b0;
@@ -229,7 +234,7 @@ module decoder (
             end
             `STORE: begin
                 aluop1_type <= `OP_TYPE_REG;
-                aluop2_type <= `OP_TYPE_REG;
+                aluop2_type <= `OP_TYPE_IMM;
                 reg_we <= `DISABLE;
                 is_load <= `DISABLE;
                 is_store <= `ENABLE;
@@ -292,9 +297,9 @@ module decoder (
         else if (ir[6:0] == `OP)
             imm_tmp = 32'b0;
         else if (ir[6:0] == `LUI)
-            imm_tmp = imm32;
+            imm_tmp = {imm32[31:12], 12'b0};
         else if (ir[6:0] == `AUIPC)
-            imm_tmp = {{11{imm21[20]}}, imm21[20:0]};
+            imm_tmp = {imm32[31:12], 12'b0};
         else if (ir[6:0] == `JAL)
             imm_tmp = {{20{imm12[11]}}, imm12[11:0]};
         else if (ir[6:0] == `JALR)

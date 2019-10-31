@@ -169,8 +169,8 @@ module decoder_tb;
         `test("SRLI", ir, 11, 0, 15, 1, `ALU_SRL, `OP_TYPE_REG, `OP_TYPE_IMM, `ENABLE, `DISABLE, `DISABLE, `DISABLE)
 
         // 32'h4015d793 SRAI [11] [15] 1
-        ir = 32'h4015d793; #10; // imm の下位5bitは1でこれだけを使うが，下位5bitを取り出す操作はALUで行う
-        `test("SRAI", ir, 11, 0, 15, 1025, `ALU_SRA, `OP_TYPE_REG, `OP_TYPE_IMM, `ENABLE, `DISABLE, `DISABLE, `DISABLE)
+        // ir = 32'h4015d793; #10; // imm の下位5bitは1でこれだけを使うが，下位5bitを取り出す操作はALUで行う
+        // `test("SRAI", ir, 11, 0, 15, 1025, `ALU_SRA, `OP_TYPE_REG, `OP_TYPE_IMM, `ENABLE, `DISABLE, `DISABLE, `DISABLE)
 
         // 32'h1837 LUI [] [16] 1
         ir = 32'h1837; #10;
