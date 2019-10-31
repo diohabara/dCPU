@@ -28,11 +28,11 @@ module alu_tb;
     wire br;
 
     alu alu(
-       .alucode(code),
-       .op1(op1),
-       .op2(op2),
-       .alu_result(result),
-       .br_taken(br)
+        .alucode(code),
+        .op1(op1),
+        .op2(op2),
+        .alu_result(result),
+        .br_taken(br)
     );
 
     initial begin
@@ -40,7 +40,7 @@ module alu_tb;
         // -----------------------------
         // arithmetic operations
         // -----------------------------
-        
+
         code = `ALU_ADD;
         op1 = 32'd34;
         op2 = 32'd55;
