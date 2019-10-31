@@ -23,7 +23,7 @@ module decoder (
     reg [12:0] imm13;
     reg [20:0] imm21;
     reg [31:0] imm32;
-    reg [31:0] imm_reg;
+    reg [31:0] imm_tmp;
 
     always @(*) begin
         case (ir[6:0])
@@ -282,31 +282,33 @@ module decoder (
         endcase
 
         if (ir[6:0] == `OPIMM) begin
-            if (alucode == `ALU_SLL || alucode == `ALU_SRL || alucode == `ALU_SRA)
-                imm_reg = {{28{imm5[4]}}, imm5[4:0]};
+            if (alucode == `ALU_SLL || `ALU_SRL)
+                imm_tmp = {{27{imm5[4]}}, imm5[4:0]};
+            else if (alucode == `ALU_SRA)
+                imm_tmp = {{27{imm5[4]}}, imm5[4:0]};
             else
-                imm_reg = {{20{imm12[11]}}, imm12[11:0]};
-        end
+                imm_tmp = {{20{imm12[11]}}, imm12[11:0]};
+            end
         else if (ir[6:0] == `OP)
-            imm_reg = 32'b0;
+            imm_tmp = 32'b0;
         else if (ir[6:0] == `LUI)
-            imm_reg = imm32;
+            imm_tmp = imm32;
         else if (ir[6:0] == `AUIPC)
-            imm_reg = {{11{imm21[20]}}, imm21[20:0]};
+            imm_tmp = {{11{imm21[20]}}, imm21[20:0]};
         else if (ir[6:0] == `JAL)
-            imm_reg = {{20{imm12[11]}}, imm12[11:0]};
+            imm_tmp = {{20{imm12[11]}}, imm12[11:0]};
         else if (ir[6:0] == `JALR)
-            imm_reg = {{19{imm13[12]}}, imm13[12:0]};
+            imm_tmp = {{19{imm13[12]}}, imm13[12:0]};
         else if (ir[6:0] == `BRANCH)
-            imm_reg = {{19{imm13[12]}}, imm13[12:0]};
+            imm_tmp = {{19{imm13[12]}}, imm13[12:0]};
         else if (ir[6:0] == `STORE)
-            imm_reg = {{20{imm12[11]}}, imm12[11:0]};
+            imm_tmp = {{20{imm12[11]}}, imm12[11:0]};
         else if (ir[6:0] == `LOAD)
-            imm_reg = {{20{imm12[11]}}, imm12[11:0]};
+            imm_tmp = {{20{imm12[11]}}, imm12[11:0]};
         else;
     end
     assign srcreg1_num = r1;
     assign srcreg2_num = r2;
     assign dstreg_num = rd;
-    assign imm = imm_reg;
+    assign imm = imm_tmp;
 endmodule
