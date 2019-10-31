@@ -15,8 +15,8 @@ module decoder (
     output reg      is_halt  // flag to halt
     );
 
-    reg [4:0] r1;
-    reg [4:0] r2;
+    reg [4:0] rs1;
+    reg [4:0] rs2;
     reg [4:0] rd;
     reg [4:0] imm5;
     reg [11:0] imm12;
@@ -34,8 +34,8 @@ module decoder (
                 is_load <= `DISABLE;
                 is_store <= `DISABLE;
                 is_halt <= `DISABLE;
-                r1[4:0] <= ir[19:15];
-                r2[4:0] <= 5'b0;
+                rs1[4:0] <= ir[19:15];
+                rs2[4:0] <= 5'b0;
                 rd[4:0] <= ir[11:7];
                 imm12[11:0] <= ir[31:20];
                 if (ir[14:12] == 3'b000) begin
@@ -77,8 +77,8 @@ module decoder (
                 is_store <= `DISABLE;
                 is_halt <= `DISABLE;
                 imm32[31:0] <= 32'b0;
-                r1[4:0] <= ir[19:15];
-                r2[4:0] <= ir[24:20];
+                rs1[4:0] <= ir[19:15];
+                rs2[4:0] <= ir[24:20];
                 rd[4:0] <= ir[11:7];
                 if (ir[31:25] == 7'b0000001) begin
                     ; // TODO: aditional codes
@@ -151,8 +151,8 @@ module decoder (
                 is_store <= `DISABLE;
                 is_halt <= `DISABLE;
                 imm32[31:12] <= ir[31:12];
-                r1[4:0] <= 0;
-                r2[4:0] <= 5'b0;
+                rs1[4:0] <= 0;
+                rs2[4:0] <= 5'b0;
                 rd[4:0] <= ir[11:7];
             end
             `AUIPC: begin
@@ -164,8 +164,8 @@ module decoder (
                 aluop1_type <= `OP_TYPE_IMM;
                 aluop2_type <= `OP_TYPE_PC;
                 imm32[31:12] <= ir[31:12];
-                r1[4:0] <= 0;
-                r2[4:0] <= 5'b0;
+                rs1[4:0] <= 0;
+                rs2[4:0] <= 5'b0;
                 rd[4:0] <= ir[11:7];
             end
             `JAL: begin
@@ -180,8 +180,8 @@ module decoder (
                 imm21[11] <= ir[20];
                 imm21[19:12] <= ir[19:12];
                 imm21[0] <= 1'b0;
-                r1[4:0] <= 5'b0;
-                r2[4:0] <= 5'b0;
+                rs1[4:0] <= 5'b0;
+                rs2[4:0] <= 5'b0;
                 rd[4:0] <= ir[11:7];
                 reg_we <= rd[4:0] == 0? `DISABLE : `ENABLE;
             end
@@ -194,8 +194,8 @@ module decoder (
                 is_store <= `DISABLE;
                 is_halt <= `DISABLE;
                 imm12[11:0] <= ir[31:20];
-                r1[4:0] <= ir[19:15];
-                r2[4:0] <= 5'b0;
+                rs1[4:0] <= ir[19:15];
+                rs2[4:0] <= 5'b0;
                 rd[4:0] <= ir[11:7];
             end
             `BRANCH: begin
@@ -210,8 +210,8 @@ module decoder (
                 imm13[4:1] <= ir[11:8];
                 imm13[11] <= ir[7];
                 imm13[0] <= 1'b0;
-                r1[4:0] <= ir[19:15];
-                r2[4:0] <= ir[24:20];
+                rs1[4:0] <= ir[19:15];
+                rs2[4:0] <= ir[24:20];
                 rd[4:0] <= 5'b0;
                 if (ir[14:12] == 3'b000) begin
                     alucode <= `ALU_BEQ;
@@ -242,8 +242,8 @@ module decoder (
                 is_halt <= `DISABLE;
                 imm12[11:5] <= ir[31:25];
                 imm12[4:0] <= ir[11:7];
-                r1[4:0] <= ir[19:15];
-                r2[4:0] <= ir[24:20];
+                rs1[4:0] <= ir[19:15];
+                rs2[4:0] <= ir[24:20];
                 rd[4:0] <= 5'b0;
                 if (ir[14:12] == 3'b000) begin
                     alucode <= `ALU_SB;
@@ -264,8 +264,8 @@ module decoder (
                 is_store <= `DISABLE;
                 is_halt <= `DISABLE;
                 imm12[11:0] <= ir[31:20];
-                r1[4:0] <= ir[19:15];
-                r2[4:0] <= 5'b0;
+                rs1[4:0] <= ir[19:15];
+                rs2[4:0] <= 5'b0;
                 rd[4:0] <= ir[11:7];
                 if (ir[14:12] == 3'b000) begin
                     alucode <= `ALU_LB;
@@ -313,8 +313,8 @@ module decoder (
             imm_tmp = {{20{imm12[11]}}, imm12[11:0]};
         else;
     end
-    assign srcreg1_num = r1;
-    assign srcreg2_num = r2;
+    assign srcreg1_num = rs1;
+    assign srcreg2_num = rs2;
     assign dstreg_num = rd;
     assign imm = imm_tmp;
 endmodule
