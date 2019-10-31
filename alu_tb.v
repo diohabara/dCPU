@@ -103,7 +103,7 @@ module alu_tb;
         #10;
         `test("ALU_SRL", 32'hDEAD, `DISABLE)
 
-        code = `ALU_SRA;        
+        code = `ALU_SRA;
         op1 = 32'hDEADDEAD;
         op2 = 32'd16;
         #10;
@@ -163,8 +163,7 @@ module alu_tb;
         op1 = 32'hFFFFFFFF;
         #10;
         `test("ALU_BLTU-2", 32'h0, `DISABLE)
-        
-        
+
         code = `ALU_BGE;
         op1 = 32'h100;
         op2 = 32'h123;
