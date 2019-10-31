@@ -134,35 +134,6 @@ module alu_tb;
         code = `ALU_BEQ;
         op1 = 32'hBAADF00D;
         op2 = 32'hBAADF00D;
-        #10;
-        `test("ALU_BEQ-2", 32'h0, `ENABLE)
-
-        code = `ALU_BNE;
-        #10;
-        op1 = 32'hBAADF00D;
-        op2 = 32'hBAADF00D;
-        `test("ALU_BNE", 32'h0, `DISABLE)
-
-        code = `ALU_BLT;
-        op1 = 32'h100;
-        op2 = 32'h123;
-        #10;
-        `test("ALU_BLT-1", 32'h0, `ENABLE)
-        code = `ALU_BLT;
-        op1 = 32'h100;
-        op2 = 32'hFEE1DEAD;
-        #10;
-        `test("ALU_BLT-2", 32'h0, `DISABLE)
-
-        code = `ALU_BLTU;
-        op1 = 32'h100;
-        op2 = 32'hFEE1DEAD;
-        #10;
-        `test("ALU_BLTU-1", 32'h0, `ENABLE)
-        code = `ALU_BLTU;
-        op1 = 32'hFFFFFFFF;
-        #10;
-        `test("ALU_BLTU-2", 32'h0, `DISABLE)
 
         code = `ALU_BGE;
         op1 = 32'h100;
