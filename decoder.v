@@ -283,26 +283,26 @@ module decoder (
 
         if (ir[6:0] == `OPIMM) begin
             if (alucode == `ALU_SLL || alucode == `ALU_SRL || alucode == `ALU_SRA)
-                imm_reg = {{5{imm5[4]}}, imm5};
+                imm_reg = {{28{imm5[4]}}, imm5[4:0]};
             else
-                imm_reg = {{12{imm12[11]}}, imm12};
+                imm_reg = {{20{imm12[11]}}, imm12[11:0]};
         end
         else if (ir[6:0] == `OP)
             imm_reg = 32'b0;
         else if (ir[6:0] == `LUI)
             imm_reg = imm32;
         else if (ir[6:0] == `AUIPC)
-            imm_reg = {{21{imm21[20]}}, imm21};
+            imm_reg = {{11{imm21[20]}}, imm21[20:0]};
         else if (ir[6:0] == `JAL)
-            imm_reg = {{12{imm12[11]}}, imm12};
+            imm_reg = {{20{imm12[11]}}, imm12[11:0]};
         else if (ir[6:0] == `JALR)
-            imm_reg = {{13{imm13[12]}}, imm13};
+            imm_reg = {{19{imm13[12]}}, imm13[12:0]};
         else if (ir[6:0] == `BRANCH)
-            imm_reg = {{13{imm13[12]}}, imm13};
+            imm_reg = {{19{imm13[12]}}, imm13[12:0]};
         else if (ir[6:0] == `STORE)
-            imm_reg = {{12{imm12[11]}}, imm12};
+            imm_reg = {{20{imm12[11]}}, imm12[11:0]};
         else if (ir[6:0] == `LOAD)
-            imm_reg = {{12{imm12[11]}}, imm12};
+            imm_reg = {{20{imm12[11]}}, imm12[11:0]};
         else;
     end
     assign srcreg1_num = r1;
