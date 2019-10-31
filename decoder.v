@@ -169,10 +169,9 @@ module decoder (
                 rd[4:0] <= ir[11:7];
             end
             `JAL: begin
-                alucode <= 0;
-                aluop1_type <= `OP_TYPE_PC;
-                aluop2_type <= `OP_TYPE_IMM;
-                reg_we <= `ENABLE;
+                alucode <= `ALU_JAL;
+                aluop1_type <= `OP_TYPE_NONE;
+                aluop2_type <= `OP_TYPE_PC;
                 is_load <= `DISABLE;
                 is_store <= `DISABLE;
                 is_halt <= `DISABLE;
@@ -180,12 +179,14 @@ module decoder (
                 imm21[10:1] <= ir[30:21];
                 imm21[11] <= ir[20];
                 imm21[19:12] <= ir[19:12];
-                r1[4:0] <= ir[19:15];
+                imm21[0] <= 1'b0;
+                r1[4:0] <= 5'b0;
                 r2[4:0] <= 5'b0;
                 rd[4:0] <= ir[11:7];
+                reg_we <= rd[4:0] == 0? `DISABLE : `ENABLE;
             end
             `JALR: begin
-                alucode <= 0;
+                alucode <= `ALU_JALR;
                 aluop1_type <= `OP_TYPE_REG;
                 aluop2_type <= `OP_TYPE_IMM;
                 reg_we <= `ENABLE;
@@ -301,7 +302,7 @@ module decoder (
         else if (ir[6:0] == `AUIPC)
             imm_tmp = {imm32[31:12], 12'b0};
         else if (ir[6:0] == `JAL)
-            imm_tmp = {{20{imm12[11]}}, imm12[11:0]};
+            imm_tmp = {{20{imm21[11]}}, imm21[11:0]};
         else if (ir[6:0] == `JALR)
             imm_tmp = {{19{imm13[12]}}, imm13[12:0]};
         else if (ir[6:0] == `BRANCH)
