@@ -11,6 +11,10 @@ diohabara's CPU, or dCPU
 
 ## Overview
 
+![CPU](img/cpu.png) [^1]
+
+[1]:from <https://slideplayer.com/slide/3942827/>
+
 ## Files description
 
 - `define.vh`
@@ -23,7 +27,25 @@ diohabara's CPU, or dCPU
   - decoder
 - `decoder_tb.v`
   - test bench for decoder
-- `
+- `memory.v`
+  - memory
+- `memory_tb.v`
+  - test bench for memory
+
+<!--
+- `register.v`
+  - register
+- `register_tb.v`
+  - test bench for register
+- `mutiplexer.v`
+  - multiplexer
+- `mutiplexer_tb.v`
+  - test bench for multiplexer
+- `dataMemory.v`
+  - data memory
+- `dataMemory_tb.v`
+  - test bench for data memory
+-->
 
 ## referrences
 

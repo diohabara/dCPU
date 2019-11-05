@@ -1,0 +1,42 @@
+@startuml CPU
+package "Instruction Fetch" {
+    Address --> Adder
+    Address --> Memory
+    4 --> Adder
+}
+    Adder --> "IF/ID"
+    Memory --> "IF/ID"
+    "IF/ID" --> "ID/EX"
+    "IF/ID" --> "ID/EX"
+package "Intruction Decode" {
+    "IF/ID" --> "Reg File"
+    "IF/ID" --> "Reg File"
+    "IF/ID" --> "Sign Extend"
+}
+    "ID/EX" --> "EX/MEM"
+package "Execute" {
+    "Reg File" -- "ID/EX"
+    "Reg File" -- "ID/EX"
+    "ID/EX" --> MUX1
+    "ID/EX" --> MUX2
+    "ID/EX" --> "Zero?"
+    MUX1 --> ALU
+    MUX2 --> ALU
+    "Zero?" --> "EX/MEM"
+    ALU -- "EX/MEM"
+}
+    "EX/MEM" --> "MEM/WB"
+package "Memory Access" {
+    "EX/MEM" --> MUX3
+    "EX/MEM" --> MUX3
+    "EX/MEM" --> "Data Memory"
+    "EX/MEM" --> "Data Memory"
+}
+    "MEM/WB" --> "Reg File"
+package "Write Back" {
+    "MEM/WB" --> MUX4
+    "MEM/WB" --> MUX4
+    MUX4 --> "Reg File"
+    MUX4 --> Address
+}
+@enduml
