@@ -53,15 +53,15 @@ module alu(
                 isBranch <= `DISABLE;
                 end
             `ALU_SLL: begin
-                res_tmp <= op1_tmp <<< op2_tmp;
+                res_tmp <= $signed(op1_tmp) <<< op2_tmp[4:0];
                 isBranch <= `DISABLE;
                 end
             `ALU_SRL: begin
-                res_tmp <= op1_tmp <<< op2_tmp;
+                res_tmp <= $signed(op1_tmp) >> op2_tmp[4:0];
                 isBranch <= `DISABLE;
                 end
             `ALU_SRA: begin
-                res_tmp <= op1_tmp << op1_tmp;
+                res_tmp <= $signed(op1_tmp) >>> op2_tmp[4:0];
                 isBranch <= `DISABLE;
                 end
             `ALU_LUI: begin
@@ -77,37 +77,43 @@ module alu(
                 isBranch <= `ENABLE;
                 end
             `ALU_BEQ: begin
-                if (op1_tmp == op2_tmp)
+                res_tmp = 0;
+                if ($signed(op1_tmp) == $signed(op2_tmp))
                     isBranch <= `ENABLE;
                 else
                     isBranch <= `DISABLE;
                 end
             `ALU_BNE: begin
-                if (op1_tmp != op2_tmp)
+                res_tmp = 0;
+                if ($signed(op1_tmp) != $signed(op2_tmp))
                     isBranch <= `ENABLE;
                 else
                     isBranch <= `DISABLE;
                 end
             `ALU_BLT: begin
-                if (op1_tmp < op2_tmp)
+                res_tmp = 0;
+                if ($signed(op1_tmp) <  $signed(op2_tmp))
                     isBranch <= `ENABLE;
                 else
                     isBranch <= `DISABLE;
                 end
             `ALU_BGE: begin
-                if (op1_tmp >= op2_tmp)
+                res_tmp = 0;
+                if ($signed(op1_tmp) >= $signed(op2_tmp))
                     isBranch <= `ENABLE;
                 else
                     isBranch <= `DISABLE;
                 end
             `ALU_BLTU: begin
-                if (op1_tmp < op2_tmp)
+                res_tmp = 0;
+                if ($unsigned(op1_tmp) < $unsigned(op2_tmp))
                     isBranch <= `ENABLE;
                 else
                     isBranch <= `DISABLE;
                 end
             `ALU_BGEU: begin
-                if (op1_tmp >= op2_tmp)
+                res_tmp = 0;
+                if ($unsigned(op1_tmp) >= $unsigned(op2_tmp))
                     isBranch <= `ENABLE;
                 else
                     isBranch <= `DISABLE;
