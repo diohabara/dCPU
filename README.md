@@ -9,6 +9,8 @@ diohabara's CPU, or dCPU
 - FPGA: `NEXYS`
 - Vivado:  `v2019.1.3 (64-bit)`
 
+## Overview
+
 ## Files description
 
 - `define.vh`
@@ -21,14 +23,18 @@ diohabara's CPU, or dCPU
   - decoder
 - `decoder_tb.v`
   - test bench for decoder
+- `
 
 ## referrences
 
-- For RISC-V
+- For RISC-Vp
   - <https://riscv.org/>
 - For CPU
-  - JPN...<https://toshiba.semicon-storage.com/jp/design-support/e-learning/micro_intro/>
+  - JPN
+    - <https://toshiba.semicon-storage.com/jp/design-support/e-learning/micro_intro/>
+  - ENG
+    - <https://wwang.github.io/teaching/CS5513_Spr19/lectures/Base_CPU_Implementation.pdf>
 
 ## note
 
-- [JPN note](https://hackmd.io/_mzHwoncRbicxOlpW_OqbQ)
+- [note in JPN](https://hackmd.io/_mzHwoncRbicxOlpW_OqbQ)
