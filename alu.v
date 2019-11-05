@@ -4,8 +4,8 @@ module alu(
     input wire [5:0] alucode,       // 演算種別
     input wire [31:0] op1,          // 入力データ1
     input wire [31:0] op2,          // 入力データ2
-    output reg [31:0] alu_result,   // 演算結果
-    output reg br_taken             // 分岐の有無
+    output wire [31:0] alu_result,   // 演算結果
+    output wire br_taken             // 分岐の有無
     );
 
 
@@ -18,87 +18,135 @@ module alu(
         op1_tmp <= op1;
         op2_tmp <= op2;
         case (alucode[5:0])
-            `ALU_ADD:
+            `ALU_ADD: begin
                 res_tmp <= op1_tmp + op2_tmp;
-            `ALU_SUB:
+                isBranch <= `DISABLE;
+                end
+            `ALU_SUB: begin
                 res_tmp <= op1_tmp - op2_tmp;
+                isBranch <= `DISABLE;
+                end
             `ALU_SLT: begin
                 if (op1_tmp < op2_tmp)
                     res_tmp <= 1;
                 else
                     res_tmp <= 0;
+                isBranch <= `DISABLE;
                 end
             `ALU_SLTU: begin
                 if (op1_tmp < op2_tmp)
                     res_tmp <= 1;
                 else
                     res_tmp <= 0;
+                isBranch <= `DISABLE;
                 end
-            `ALU_XOR:
+            `ALU_XOR: begin
                 res_tmp <= op1_tmp ^ op2_tmp;
-            `ALU_OR:
+                isBranch <= `DISABLE;
+                end
+            `ALU_OR: begin
                 res_tmp <= op1_tmp | op2_tmp;
-            `ALU_AND:
+                isBranch <= `DISABLE;
+                end
+            `ALU_AND: begin
                 res_tmp <= op1_tmp & op2_tmp;
-            `ALU_SLL:
+                isBranch <= `DISABLE;
+                end
+            `ALU_SLL: begin
                 res_tmp <= op1_tmp <<< op2_tmp;
-            `ALU_SRL:
+                isBranch <= `DISABLE;
+                end
+            `ALU_SRL: begin
                 res_tmp <= op1_tmp <<< op2_tmp;
-            `ALU_SRA:
+                isBranch <= `DISABLE;
+                end
+            `ALU_SRA: begin
                 res_tmp <= op1_tmp << op1_tmp;
-            `ALU_LUI:
+                isBranch <= `DISABLE;
+                end
+            `ALU_LUI: begin
                 res_tmp <= op2_tmp;
-            `ALU_JAL:
+                isBranch <= `DISABLE;
+                end
+            `ALU_JAL: begin
                 res_tmp <= op2_tmp + 4;
                 isBranch <= `ENABLE;
-            `ALU_JALR:
+                end
+            `ALU_JALR: begin
                 res_tmp <= op2_tmp + 4;
                 isBranch <= `ENABLE;
-            `ALU_BEQ:
+                end
+            `ALU_BEQ: begin
                 if (op1_tmp == op2_tmp)
                     isBranch <= `ENABLE;
                 else
                     isBranch <= `DISABLE;
-            `ALU_BNE:
+                end
+            `ALU_BNE: begin
                 if (op1_tmp != op2_tmp)
                     isBranch <= `ENABLE;
                 else
                     isBranch <= `DISABLE;
-            `ALU_BLT:
+                end
+            `ALU_BLT: begin
                 if (op1_tmp < op2_tmp)
                     isBranch <= `ENABLE;
                 else
                     isBranch <= `DISABLE;
-            `ALU_BGE:
+                end
+            `ALU_BGE: begin
                 if (op1_tmp >= op2_tmp)
                     isBranch <= `ENABLE;
                 else
                     isBranch <= `DISABLE;
-            `ALU_BLTU:
+                end
+            `ALU_BLTU: begin
                 if (op1_tmp < op2_tmp)
                     isBranch <= `ENABLE;
                 else
                     isBranch <= `DISABLE;
-            `ALU_BGEU:
+                end
+            `ALU_BGEU: begin
                 if (op1_tmp >= op2_tmp)
                     isBranch <= `ENABLE;
                 else
                     isBranch <= `DISABLE;
-            `ALU_SB:
-                res_tmp = op1_tmp + op2_tmp;
-            `ALU_SH:
-                res_tmp = op1_tmp + op2_tmp;
-            `ALU_SW:
-                res_tmp = op1_tmp + op2_tmp;
-            `ALU_LB:
-            `ALU_LH:
-            `ALU_LW:
-            `ALU_LBU:
-            `ALU_LHU:
+                end
+            `ALU_SB: begin
+                res_tmp <= op1_tmp + op2_tmp;
+                isBranch <= `DISABLE;
+                end
+            `ALU_SH: begin
+                res_tmp <= op1_tmp + op2_tmp;
+                isBranch <= `DISABLE;
+                end
+            `ALU_SW: begin
+                res_tmp <= op1_tmp + op2_tmp;
+                isBranch <= `DISABLE;
+                end
+            `ALU_LB: begin
+                res_tmp <= op1_tmp + op2_tmp;
+                isBranch <= `DISABLE;
+                end
+            `ALU_LH: begin
+                res_tmp <= op1_tmp + op2_tmp;
+                isBranch <= `DISABLE;
+                end
+            `ALU_LW: begin
+                res_tmp <= op1_tmp + op2_tmp;
+                isBranch <= `DISABLE;
+                end
+            `ALU_LBU: begin
+                res_tmp <= op1_tmp + op2_tmp;
+                isBranch <= `DISABLE;
+                end
+            `ALU_LHU: begin
+                res_tmp <= op1_tmp + op2_tmp;
+                isBranch <= `DISABLE;
+                end
             default:;
         endcase
     end
-
-    assign alu_result = br_taken == 0 ? res_tmp : br_taken;
-
+    assign alu_result = res_tmp;
+    assign br_taken = isBranch;
 endmodule

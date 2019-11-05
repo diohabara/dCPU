@@ -209,9 +209,8 @@ module alu_tb;
         #10;
         `test("ALU_SW", 32'd55, `DISABLE)
 
-
         // -----------------------------
-        // other operations
+        // other operationsp
         // -----------------------------
         code = `ALU_LUI;
         op1 = 32'd10;
