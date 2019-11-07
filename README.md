@@ -11,9 +11,9 @@ diohabara's CPU, or dCPU
 
 ## Overview
 
-![CPU](img/cpu.png) [^1]
+![CPU](img/cpu.png)
 
-[^1]:from <https://slideplayer.com/slide/3942827/>
+from <https://slideplayer.com/slide/3942827/>
 
 ## Files description
 
