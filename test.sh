@@ -9,5 +9,9 @@ case $file in
         iverilog ./alu.v ./alu_tb.v
         ./a.out
         ;;
+    memory)
+        ;;
     *)
+        echo $file is not a correct option
+        ;;
 esac
