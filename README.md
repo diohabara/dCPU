@@ -2,7 +2,7 @@
 
 diohabara's CPU, or dCPU
 
-## environment
+## Environment
 
 - OS: `Ubuntu 18.04.3 LTS`
 - Assembly: `RISC-V`
@@ -13,7 +13,7 @@ diohabara's CPU, or dCPU
 
 ![CPU](img/cpu.png) [^1]
 
-[1]:from <https://slideplayer.com/slide/3942827/>
+[^1]:from <https://slideplayer.com/slide/3942827/>
 
 ## Files description
 
