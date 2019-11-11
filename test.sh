@@ -2,12 +2,12 @@
 read file
 case $file in
     decoder)
-        iverilog ./decoder.v ./decoder_tb.v
-        ./a.out
+        iverilog src/decoder.v src/decoder_tb.v
+        src/a.out
         ;;
     alu)
-        iverilog ./alu.v ./alu_tb.v
-        ./a.out
+        iverilog src/alu.v src/alu_tb.v
+        src/a.out
         ;;
     *)
         echo $file is not a correct option
