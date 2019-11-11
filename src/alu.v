@@ -2,8 +2,8 @@
 
 module alu(
     input wire [5:0] alucode,       // 演算種別
-    input wire [31:0] op1,          // 入力データ1
-    input wire [31:0] op2,          // 入力データ2
+    input wire [31:0] opr1,          // 入力データ1
+    input wire [31:0] opr2,          // 入力データ2
     output wire [31:0] alu_result,   // 演算結果
     output wire br_taken             // 分岐の有無
     );
@@ -15,8 +15,8 @@ module alu(
     reg isBranch;
 
     always @(*) begin
-        op1_tmp <= op1;
-        op2_tmp <= op2;
+        op1_tmp <= opr1;
+        op2_tmp <= opr2;
         case (alucode[5:0])
             `ALU_ADD: begin
                 res_tmp <= op1_tmp + op2_tmp;
@@ -28,7 +28,7 @@ module alu(
                 end
             `ALU_SLT: begin
                 if (op1_tmp < op2_tmp)
-                    res_tmp <= 1;
+                    r1s_tmp <= 1;
                 else
                     res_tmp <= 0;
                 isBranch <= `DISABLE;
