@@ -1,2 +1,2 @@
 #!/bin/bash
-iverilog src/*.v
+iverilog src/*.v src/define.vh
