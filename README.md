@@ -27,29 +27,22 @@ from <https://slideplayer.com/slide/3942827/>
   - decoder
 - `decoder_tb.v`
   - test bench for decoder
-- `memory.v`
+- `mem.v`
   - memory
-- `memory_tb.v`
+- `mem_tb.v`
   - test bench for memory
-
-<!--
-- `register.v`
+- `reg.v`
   - register
-- `register_tb.v`
+- `reg_tb.v`
   - test bench for register
-- `mutiplexer.v`
-  - multiplexer
-- `mutiplexer_tb.v`
-  - test bench for multiplexer
-- `dataMemory.v`
-  - data memory
-- `dataMemory_tb.v`
-  - test bench for data memory
--->
+- `fetch.v`
+  - fetch instructions
+- `adder.v`
+  - adder
 
 ## referrences
 
-- For RISC-Vp
+- For RISC-V
   - <https://riscv.org/>
 - For CPU
   - JPN
