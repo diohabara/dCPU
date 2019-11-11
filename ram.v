@@ -1,4 +1,4 @@
-module ram(clk, we, r_addr, r_data, w_addr, w_data); 
+module ram(clk, we, r_addr, r_data, w_addr, w_data);
         input clk, we;
         input  [4:0] r_addr, w_addr;
         input  [31:0] w_data;
