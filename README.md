@@ -15,6 +15,16 @@ diohabara's CPU, or dCPU
 
 from <https://slideplayer.com/slide/3942827/>
 
+## Test
+
+Type this command
+
+```sh
+./test.sh
+```
+
+and type the component you would like to test
+
 ## Files description
 
 - `define.vh`
@@ -29,12 +39,8 @@ from <https://slideplayer.com/slide/3942827/>
   - test bench for decoder
 - `mem.v`
   - memory
-- `mem_tb.v`
-  - test bench for memory
 - `reg.v`
   - register
-- `reg_tb.v`
-  - test bench for register
 - `fetch.v`
   - fetch instructions
 - `adder.v`
