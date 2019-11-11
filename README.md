@@ -25,32 +25,14 @@ Type this command
 
 and type the component you would like to test
 
-## Files description
+## Folder description
 
-- `define.vh`
-  - header file
-- `alu.v`
-  - arithmetic logic unit
-- `alu_tb.v`
-  - test bench for arithmetic logic unit
-- `decoder.v`
-  - decoder
-- `decoder_tb.v`
-  - test bench for decoder
-- `data_mem.v`
-  - data memory
-- `reg_file.v`
-  - register
-- `fetch.v`
-  - fetch instructions
-- `adder.v`
-  - adder
-- `cpu.v`
-  - top module
-- `rom.v`
-  - read only memory
-- `ram.v`
-  - random access memory
+- `src`
+  - includes source files
+- `test`
+  - includes test bench files
+- `img`
+  - includes images
 
 ## referrences
 
