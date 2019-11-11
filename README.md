@@ -11,9 +11,7 @@ diohabara's CPU, or dCPU
 
 ## Overview
 
-![CPU](img/cpu.png)
-
-from <https://slideplayer.com/slide/3942827/>
+![CPU](img/cpu.dot.svg)
 
 ## Test
 
@@ -23,17 +21,22 @@ Type this command
 ./test.sh
 ```
 
-and type the component you would like to test
+and type the component below you would like to test
+
+- `alu`
+- `decoder`
+
+is available
 
 ## Folder description
 
+- `img`
+  - includes images
 - `src`
   - includes source files
 - `test`
   - includes test bench files
-- `img`
-  - includes images
-
+  
 ## referrences
 
 - For RISC-V

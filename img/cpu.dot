@@ -1,0 +1,14 @@
+digraph CPU{
+    node[shape=block]
+    label = "CPU Flow"
+    rankdir = LR
+    inst_mem -> fetch [label="bits"]
+    fetch -> decode [label="inst"]
+    decode -> "register file" [label="address"]
+    "register file" -> ALU [label="register file"]
+    ALU -> data_mem [label="data"]
+    data_mem -> "register file" [label="data"]
+    ALU -> PC [label=PC]
+    PC -> PC  [label=PC]
+    PC -> inst_mem [label=PC]
+}
