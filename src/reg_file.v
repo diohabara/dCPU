@@ -1,7 +1,7 @@
 module reg_file(
     clk, rstd, wr, ra1, ra2, wa, wren, rr1, rr2
 );
-    input clk, rstd, wren
+    input clk, rstd, wren;
     input [31:0] wr;
     input [4:0] ra1, ra2, wa;
     output [31:0] rr1, rr2;

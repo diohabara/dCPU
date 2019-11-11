@@ -6,5 +6,5 @@ module cpu(clk, rstd);
 
     fetch fetch_body(pc[7:0], ins);
     writeback writeback_body(clk, rstd, nextpc, pc);
-    reg_file rf_body(clk, rstd, result, ins[25:21], ins[20:16], wra, (~|wra), reg1, reg2);
+    reg_file rf_body(clk, rstd, result, inst[25:21], ins[20:16], wra, (~|wra), reg1, reg2);
 endmodule
