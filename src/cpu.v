@@ -8,9 +8,11 @@ module cpu(clk, rstd);
     wire br_taken;
     reg reg_wren, is_load, is_store, is_halt;
 
-    rom rom_body(clk, r_addr, r_data);
-    fetch fetch_body(pc[7:0], ins);
-    adder adder_body(pc, 4, nextpc);
-    reg_file rf_body(clk, rstd, wr_addr);
-    decoder decoder_body(ins, rs1, rs2, rd, imm, alucode, aluop1_type, aluop2_type, reg_wren, is_load, is_store, is_halt);
+    pc;
+    inst_mem;
+    fetch;
+    decode;
+    reg_file;
+    alu;
+    data_mem;
 endmodule
