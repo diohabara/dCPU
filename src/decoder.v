@@ -1,18 +1,18 @@
 `include "define.vh"
 
 module decoder (
-    input  wire [31:0]  ir,           // 機械語命令列
-    output wire  [4:0]	srcreg1_num,  // ソースレジスタ1番号
-    output wire  [4:0]	srcreg2_num,  // ソースレジスタ2番号
-    output wire  [4:0]	dstreg_num,   // デスティネーションレジスタ番号
-    output wire [31:0]	imm,          // 即値
-    output reg   [5:0]	alucode,      // ALUの演算種別
-    output reg   [1:0]	aluop1_type,  // ALUの入力タイプ
-    output reg   [1:0]	aluop2_type,  // ALUの入力タイプ
-    output reg	    reg_we,       // レジスタ書き込みの有無
-    output reg		is_load,      // ロード命令判定フラグ
-    output reg		is_store,     // ストア命令判定フラグ
-    output reg      is_halt  // flag to halt
+    input  wire [31:0] ir,           // 機械語命令列
+    output wire [4:0] srcreg1_num,  // ソースレジスタ1番号
+    output wire [4:0] srcreg2_num,  // ソースレジスタ2番号
+    output wire [4:0] dstreg_num,   // デスティネーションレジスタ番号
+    output wire [31:0] imm,          // 即値
+    output reg [5:0] alucode,      // ALUの演算種別
+    output reg [1:0] aluop1_type,  // ALUの入力タイプ
+    output reg [1:0] aluop2_type,  // ALUの入力タイプ
+    output reg reg_wren,       // レジスタ書き込みの有無
+    output reg is_load,      // ロード命令判定フラグ
+    output reg is_store,     // ストア命令判定フラグ
+    output reg is_halt  // flag to halt
     );
 
     reg [4:0] rs1;
@@ -30,7 +30,7 @@ module decoder (
             `OPIMM: begin
                 aluop1_type <= `OP_TYPE_REG;
                 aluop2_type <= `OP_TYPE_IMM;
-                reg_we <= `ENABLE;
+                reg_wren <= `ENABLE;
                 is_load <= `DISABLE;
                 is_store <= `DISABLE;
                 is_halt <= `DISABLE;
@@ -72,7 +72,7 @@ module decoder (
             `OP: begin
                 aluop1_type <= `OP_TYPE_REG;
                 aluop2_type <= `OP_TYPE_REG;
-                reg_we <= `ENABLE;
+                reg_wren <= `ENABLE;
                 is_load <= `DISABLE;
                 is_store <= `DISABLE;
                 is_halt <= `DISABLE;
@@ -146,7 +146,7 @@ module decoder (
                 alucode <= 0;
                 aluop1_type <= `OP_TYPE_NONE;
                 aluop2_type <= `OP_TYPE_IMM;
-                reg_we <= `ENABLE;
+                reg_wren <= `ENABLE;
                 is_load <= `DISABLE;
                 is_store <= `DISABLE;
                 is_halt <= `DISABLE;
@@ -157,7 +157,7 @@ module decoder (
             end
             `AUIPC: begin
                 alucode <= `ALU_ADD;
-                reg_we <= `ENABLE;
+                reg_wren <= `ENABLE;
                 is_load <= `DISABLE;
                 is_store <= `DISABLE;
                 is_halt <= `DISABLE;
@@ -183,13 +183,13 @@ module decoder (
                 rs1[4:0] <= 5'b0;
                 rs2[4:0] <= 5'b0;
                 rd[4:0] <= ir[11:7];
-                reg_we <= rd[4:0] == 0? `DISABLE : `ENABLE;
+                reg_wren <= rd[4:0] == 0? `DISABLE : `ENABLE;
             end
             `JALR: begin
                 alucode <= `ALU_JALR;
                 aluop1_type <= `OP_TYPE_REG;
                 aluop2_type <= `OP_TYPE_IMM;
-                reg_we <= `ENABLE;
+                reg_wren <= `ENABLE;
                 is_load <= `DISABLE;
                 is_store <= `DISABLE;
                 is_halt <= `DISABLE;
@@ -201,7 +201,7 @@ module decoder (
             `BRANCH: begin
                 aluop1_type <= `OP_TYPE_REG;
                 aluop2_type <= `OP_TYPE_REG;
-                reg_we <= `DISABLE;
+                reg_wren <= `DISABLE;
                 is_load <= `DISABLE;
                 is_store <= `DISABLE;
                 is_halt <= `DISABLE;
@@ -236,7 +236,7 @@ module decoder (
             `STORE: begin
                 aluop1_type <= `OP_TYPE_REG;
                 aluop2_type <= `OP_TYPE_IMM;
-                reg_we <= `DISABLE;
+                reg_wren <= `DISABLE;
                 is_load <= `DISABLE;
                 is_store <= `ENABLE;
                 is_halt <= `DISABLE;
@@ -259,7 +259,7 @@ module decoder (
             `LOAD: begin
                 aluop1_type <= `OP_TYPE_REG;
                 aluop2_type <= `OP_TYPE_IMM;
-                reg_we <= `ENABLE;
+                reg_wren <= `ENABLE;
                 is_load <= `ENABLE;
                 is_store <= `DISABLE;
                 is_halt <= `DISABLE;
