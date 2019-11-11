@@ -1,6 +1,6 @@
 `include "define.vh"
 
-module memory(address, clk, writeEn, write_data, read_data);
+module data_mem(address, clk, writeEn, write_data, read_data);
         input [7:0] address;
         input clk, writeEn;
         input [7:0] write_data;

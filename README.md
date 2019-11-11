@@ -37,14 +37,20 @@ and type the component you would like to test
   - decoder
 - `decoder_tb.v`
   - test bench for decoder
-- `mem.v`
-  - memory
-- `reg.v`
+- `data_mem.v`
+  - data memory
+- `reg_file.v`
   - register
 - `fetch.v`
   - fetch instructions
 - `adder.v`
   - adder
+- `cpu.v`
+  - top module
+- `rom.v`
+  - read only memory
+- `ram.v`
+  - random access memory
 
 ## referrences
 
