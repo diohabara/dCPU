@@ -14,8 +14,8 @@ module cpu_tb;
     );
 
     initial begin
-        #10     clk     = 1'd0;
-                rst_n    = 1'd0;
+        #10 clk = 1'd0;
+            rst_n = 1'd0;
         #(CYCLE) rst_n = 1'd1;
         #(CYCLE*10000) $finish;
     end
