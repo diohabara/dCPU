@@ -1,16 +1,15 @@
 module pc (
     input clk,
-    input rst,
+    input rst_n,
     input br_taken,
     input [31:0] result,
-    input [4:0] cpc,
-    output reg [4:0] npc
+    output reg [4:0] pc
     );
 
     always @(posedge clk) begin
-        if (rst == 0)
-            npc <= 0;
+        if (rst_n == `DISABLE)
+            pc <= 0;
         else
-            npc <= cpc + 2'b1;
+            pc <= pc + 4;
     end
 endmodule

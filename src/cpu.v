@@ -1,28 +1,48 @@
 module cpu(
     input clk,
-    input rst
+    input rst_n
     );
 
-    wire [31:0] ins, reg1_data, reg2_data, result, imm, data;
+    wire [31:0] ins, rs1, rs2, alu_result, imm, reg_data;
     wire [5:0] alucode;
-    wire [4:0] cpc, npc, rs_addr1, rs_addr2, rd_addr;
+    wire [4:0] pc, rs_addr1, rs_addr2, rd_addr;
     wire [1:0] aluop1_type, aluop2_type;
     wire br_taken, wren, is_load, is_store, is_halt;
+    wire [4:0] r_addr_reg, w_addr_reg, br_addr;
+    wire [3:0] mask_buffer;
+
+    function [3:0] store_mask;
+        input alucode;
+        case (alucode)
+            `ALU_SB: begin
+                store_mask[0] = 1'b1;
+            end
+            `ALU_SH: begin
+                store_mask[0] = 1'b1;
+                store_mask[1] = 1'b1;
+            end
+            `ALU_SW: begin
+                store_mask[0] = 1'b1;
+                store_mask[1] = 1'b1;
+                store_mask[2] = 1'b1;
+                store_mask[3] = 1'b1;
+            end
+        endcase
+    endfunction
 
     pc pc_body(
         // input
         clk,
-        rst,
+        rst_n,
         bs_taken,
-        result,
-        cpc,
+        alu_result,
         // output
-        npc
+        pc
     );
     mem mem_body(
         // input
         clk,
-        npc,
+        pc,
         // output
         ins
     );
@@ -45,35 +65,38 @@ module cpu(
     alu alu_body(
         // input
         alucode,
-        reg1,
-        reg2,
+        rs1,
+        rs2,
         // output
-        result,
+        alu_result,
         br_taken
     );
     reg_file rf_body(
         // input
         clk,
-        rst,
+        rst_n,
         wren,
-        is_load,
         rs_addr1,
         rs_addr2,
         rd_addr,
-        r_data,
+        reg_data,
         // output
-        opr1,
-        opr2
+        rs1,
+        rs2
     );
+    assign r_addr_reg = (is_load == `ENABLE) ? rs1 + imm : 0;
+    assign w_addr_reg = (is_store == `ENABLE) ? rs1 + imm : 0;
+    assign mask_buffer = store_mask(alucode);
     data_mem dm_body(
         // input
         clk,
         wren,
-        is_store,
-        r_addr,
-        w_addr,
-        w_data
+        is_load,
+        mask_buffer,
+        r_addr_reg,
+        w_addr_reg,
+        rs2,
         // output
-        r_data
+        reg_data
     );
 endmodule

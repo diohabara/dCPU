@@ -5,7 +5,7 @@ module mem(
     );
 
     reg [4:0] addr_reg;
-    reg [`MAX_MEM:0] mem [0:31];
+    reg [31:0] mem [0:`MAX_MEM];
 
     initial $readmemh("../../b3exp/benchmarks/tests/ControlTransfer/code.hex", mem);
 

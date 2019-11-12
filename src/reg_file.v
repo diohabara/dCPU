@@ -1,24 +1,26 @@
 module reg_file(
     input clk,
-    input rst,
+    input rst_n,
     input wren,
-    input is_load,
     input [4:0] rs_addr1,
     input [4:0] rs_addr2,
     input [4:0] rd_addr,
-    input [31:0] data,
-    output [31:0] opr1,
-    output [31:0] opr2
+    input [31:0] reg_data,
+    output [31:0] rs1,
+    output [31:0] rs2
     );
 
     reg [31:0] rf [0:31];
 
-    assign opr1 = rf[rs_addr1];
-    assign opr2 = rf[rs_addr2];
-    always @(negedge rst or posedge clk) begin
-        if (rst == 0)
+    always @(negedge rst_n or posedge clk) begin
+        if (rst_n == `DISABLE) begin
             rf[0] <= 0;
-        else if (wren == 0)
-            rf[rd_addr] <= rd_addr;
+        end
+        else if (wren == `ENABLE && rd_addr != 0) begin
+            rf[rd_addr] <= reg_data;
+        end
     end
+    assign rs1 = rf[rs_addr1];
+    assign rs2 = rf[rs_addr2];
+
 endmodule
