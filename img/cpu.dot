@@ -1,14 +1,18 @@
 digraph CPU{
-    node[shape=block]
+    node[shape=box]
     label = "CPU Flow"
     rankdir = LR
-    inst_mem -> fetch [label="bits"]
-    fetch -> decode [label="inst"]
-    decode -> "register file" [label="address"]
-    "register file" -> ALU [label="register file"]
-    ALU -> data_mem [label="data"]
-    data_mem -> "register file" [label="data"]
-    ALU -> PC [label=PC]
-    PC -> PC  [label=PC]
-    PC -> inst_mem [label=PC]
+    pc -> mem
+    pc -> pc
+    alu -> pc
+    mem -> decoder
+    decoder -> reg_file
+    reg_file ->  alu
+    alu -> data_mem
+    data_mem -> reg_file
+    decoder -> alu
+    decoder -> data_mem
+    pc -> reg_file
+    data_mem -> alu
+    {rank=same;data_mem;alu}
 }

@@ -13,7 +13,7 @@ module cpu(
         // input
         clk,
         rst,
-        is_taken,
+        bs_taken,
         result,
         cpc,
         // output

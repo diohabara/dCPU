@@ -2,7 +2,7 @@ module pc (
     input clk,
     input rst,
     input br_taken,
-    input [4:0] result,
+    input [31:0] result,
     input [4:0] cpc,
     output reg [4:0] npc
     );
