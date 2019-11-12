@@ -27,7 +27,7 @@ module alu(
                 end
             `ALU_SLT: begin
                 if (op1_tmp < op2_tmp)
-                    r1s_tmp <= 1;
+                    op1_tmp <= 1;
                 else
                     res_tmp <= 0;
                 isBranch <= `DISABLE;

@@ -17,6 +17,6 @@ module reg_file(
         if (rst == 0)
             rf[0] <= 0;
         else if (wren == 0)
-            rf[rd_addr] <= wr;
+            rf[rd_addr] <= rd_addr;
     end
 endmodule

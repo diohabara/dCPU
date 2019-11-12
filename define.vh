@@ -81,3 +81,7 @@
 
 // address for UART
 `define UART_ADDR 32'hf6fff070
+
+// size of the memories
+`define MAX_MEM 64000
+`define MAX_D_MEM 64000

@@ -2,17 +2,19 @@ module cpu(
     input clk,
     input rst
     );
-    wire [31:0] cpc, npc, ins, reg1, reg2, result, imm;
-    wire [1:0] aluop1_type, aluop2_type;
-    wire [4:0] rs_addr1, rs_addr2, rd_addr;
+
+    wire [31:0] ins, reg1, reg2, result, imm;
     wire [5:0] alucode;
-    wire br_taken;
-    reg wren, is_load, is_store, is_halt;
+    wire [4:0] cpc, npc, rs_addr1, rs_addr2, rd_addr;
+    wire [1:0] aluop1_type, aluop2_type;
+    wire br_taken, wren, is_load, is_store, is_halt;
 
     pc pc_body(
         // input
         clk,
         rst,
+        is_taken,
+        result,
         cpc,
         // output
         npc
@@ -24,7 +26,7 @@ module cpu(
         // output
         ins
     );
-    decode decode_body(
+    decoder decoder_body(
         // input
         ins,
         // output
@@ -65,10 +67,8 @@ module cpu(
         // input
         clk,
         wren,
-        r_addr,
-        w_addr,
-        result,
+        // TODO: ここにr_addr, w_addr, w_dataを書く
         // output
-        r_data
+        // TODO: ここにr_dataを書く
     );
 endmodule
