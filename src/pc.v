@@ -1,9 +1,8 @@
 module pc (
     input clk;
     input rst;
-    input br_taken;
-    input [31:0] cpc;
-    output [31:0] npc;
+    input [4:0] cpc;
+    output [4:0] npc;
     );
 
     initial begin
@@ -11,9 +10,9 @@ module pc (
     end
 
     always @(posedge clk) begin
-        if (rst)
+        if (rst == 0)
             npc <= 0;
         else
-            npc <= cpn + 4;
+            npc <= cpn + 2'b1;
     end
 endmodule

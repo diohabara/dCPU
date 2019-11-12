@@ -1,7 +1,7 @@
 module reg_file(
     input clk;
-    input wren;
     input rst;
+    input wren;
     input [4:0] rs_addr1;
     input [4:0] rs_addr2;
     input [4:0] rd_addr;

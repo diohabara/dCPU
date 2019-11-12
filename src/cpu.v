@@ -10,21 +10,62 @@ module cpu(
     reg wren, is_load, is_store, is_halt;
 
     pc pc_body(
-        clk, rst, br_taken, input cpc, npc
+        // input
+        clk,
+        rst,
+        cpc,
+        // output
+        npc
     );
     mem mem_body(
-        clk, r_addr, ins
+        // input
+        clk,
+        r_addr,
+        // output
+        ins
     );
     decode decode_body(
-        ins, rs_addr1, rs_addr2, rd_addr, imm, alucode, aluop1_type, aluop2_type, wren, is_load, is_store, is_halt
-    );
-    data_mem dm_body(
-        clk, rst
-    );
-    alu alu_body(
-        alucode, reg1, reg2, result, br_taken
+        // input
+        ins,
+        // output
+        rs_addr1,
+        rs_addr2,
+        rd_addr,
+        imm,
+        alucode,
+        aluop1_type,
+        aluop2_type,
+        wren,
+        is_load,
+        is_store,
+        is_halt
     );
     reg_file rf_body(
-        clk, wren, rst, rs_addr1, rs_addr2, rd_addr, reg1, reg2
+        // input
+        clk,
+        rst,
+        wren,
+        rs_addr1,
+        rs_addr2,
+        rd_addr,
+        // output
+        reg1,
+        reg2
+    );
+    alu alu_body(
+        // input
+        alucode,
+        reg1,
+        reg2,
+        // output
+        result,
+        br_taken
+    );
+    data_mem dm_body(
+        // input
+        clk,
+        rst,
+        // output
+        r_addr
     );
 endmodule
