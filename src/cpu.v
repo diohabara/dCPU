@@ -67,6 +67,8 @@ module cpu(
         // input
         clk,
         wren,
+        is_load,
+        is_store,
         // TODO: ここにr_addr, w_addr, w_dataを書く
         // output
         // TODO: ここにr_dataを書く
