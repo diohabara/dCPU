@@ -3,7 +3,7 @@ module cpu(
     input rst
     );
 
-    wire [31:0] ins, reg1, reg2, result, imm;
+    wire [31:0] ins, reg1_data, reg2_data, result, imm, data;
     wire [5:0] alucode;
     wire [4:0] cpc, npc, rs_addr1, rs_addr2, rd_addr;
     wire [1:0] aluop1_type, aluop2_type;
@@ -42,18 +42,6 @@ module cpu(
         is_store,
         is_halt
     );
-    reg_file rf_body(
-        // input
-        clk,
-        rst,
-        wren,
-        rs_addr1,
-        rs_addr2,
-        rd_addr,
-        // output
-        reg1,
-        reg2
-    );
     alu alu_body(
         // input
         alucode,
@@ -63,14 +51,29 @@ module cpu(
         result,
         br_taken
     );
+    reg_file rf_body(
+        // input
+        clk,
+        rst,
+        wren,
+        is_load,
+        rs_addr1,
+        rs_addr2,
+        rd_addr,
+        r_data,
+        // output
+        opr1,
+        opr2
+    );
     data_mem dm_body(
         // input
         clk,
         wren,
-        is_load,
         is_store,
-        // TODO: ここにr_addr, w_addr, w_dataを書く
+        r_addr,
+        w_addr,
+        w_data
         // output
-        // TODO: ここにr_dataを書く
+        r_data
     );
 endmodule

@@ -1,7 +1,6 @@
 module data_mem(
     input clk,
     input wren,
-    input is_load,
     input is_store,
     input [4:0] r_addr,
     input [4:0] w_addr,
@@ -15,8 +14,7 @@ module data_mem(
     always @(posedge clk) begin
         if (wren == 0)
             mem[addr_reg] <= w_data;
-        else
-            addr_reg <= r_addr;
+        addr_reg <= r_addr;
     end
     assign r_data = mem[addr_reg];
 endmodule
