@@ -18,7 +18,7 @@ diohabara's CPU, or dCPU
 Type this command
 
 ```sh
-./test.sh
+bin/test.sh
 ```
 
 and type the component below you would like to test
@@ -36,7 +36,9 @@ is available
   - includes source files
 - `test`
   - includes test bench files
-  
+- `bin`
+  - includes shell scripts
+
 ## referrences
 
 - For RISC-V
