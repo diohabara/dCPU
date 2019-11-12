@@ -1,6 +1,9 @@
 module data_mem(
-    input clk, rst;
-    input  [4:0] r_addr;
+    input clk;
+    input wren;
+    input [4:0] r_addr;
+    input [4:0] w_addr;
+    input [31:0] w_data;
     output [31:0] r_data;
     );
 
