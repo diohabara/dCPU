@@ -1,6 +1,7 @@
 module pc (
     input clk;
     input rst;
+    input br_taken;
     input [31:0] cpc;
     output [31:0] npc;
     );

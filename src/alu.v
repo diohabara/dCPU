@@ -8,7 +8,6 @@ module alu(
     output wire br_taken             // 分岐の有無
     );
 
-
     reg [31:0] op1_tmp;
     reg [31:0] op2_tmp;
     reg [31:0] res_tmp;
