@@ -1,12 +1,12 @@
 module reg_file(
-    input clk;
-    input rst;
-    input wren;
-    input [4:0] rs_addr1;
-    input [4:0] rs_addr2;
-    input [4:0] rd_addr;
-    output [31:0] opr1;
-    output [31:0] opr2;
+    input clk,
+    input rst,
+    input wren,
+    input [4:0] rs_addr1,
+    input [4:0] rs_addr2,
+    input [4:0] rd_addr,
+    output [31:0] opr1,
+    output [31:0] opr2
     );
 
     reg [31:0] rf [0:31];

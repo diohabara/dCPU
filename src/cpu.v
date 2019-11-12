@@ -1,6 +1,6 @@
 module cpu(
-    input clk;
-    input rst;
+    input clk,
+    input rst
     );
     wire [31:0] cpc, npc, ins, reg1, reg2, result, imm;
     wire [1:0] aluop1_type, aluop2_type;
@@ -20,7 +20,7 @@ module cpu(
     mem mem_body(
         // input
         clk,
-        r_addr,
+        npc,
         // output
         ins
     );
@@ -64,8 +64,11 @@ module cpu(
     data_mem dm_body(
         // input
         clk,
-        rst,
+        wren,
+        r_addr,
+        w_addr,
+        result,
         // output
-        r_addr
+        r_data
     );
 endmodule

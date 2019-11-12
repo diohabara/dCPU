@@ -1,8 +1,8 @@
 module pc (
-    input clk;
-    input rst;
-    input [4:0] cpc;
-    output [4:0] npc;
+    input clk,
+    input rst,
+    input [4:0] cpc,
+    output [4:0] npc
     );
 
     initial begin
