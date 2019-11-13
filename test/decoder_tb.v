@@ -41,15 +41,15 @@ module decoder_tb;
     wire is_halt;
 
     decoder decoder(
-        .ir(ir),
-        .srcreg1_num(srcreg1_num),
-        .srcreg2_num(srcreg2_num),
-        .dstreg_num(dstreg_num),
+        .ins(ir),
+        .rs_addr1(srcreg1_num),
+        .rs_addr2(srcreg2_num),
+        .rd_addr(dstreg_num),
         .imm(imm),
         .alucode(alucode),
         .aluop1_type(aluop1_type),
         .aluop2_type(aluop2_type),
-        .reg_we(reg_we),
+        .wren(reg_we),
         .is_load(is_load),
         .is_store(is_store),
         .is_halt(is_halt)
