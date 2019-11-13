@@ -9,6 +9,10 @@ case $file in
         iverilog src/alu.v test/alu_tb.v
         ./a.out
         ;;
+    cpu)
+        iverilog src/*.v test/cpu_tb.v
+        ./a.out
+        ;;
     *)
         echo "$file is not a correct option"
         echo "You have decoder and alu options"
