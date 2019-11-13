@@ -5,7 +5,7 @@ module reg_file(
     input [4:0] rs_addr1,
     input [4:0] rs_addr2,
     input [4:0] rd_addr,
-    input [31:0] reg_data,
+    input [31:0] r_data,
     output [31:0] rs1,
     output [31:0] rs2
     );
@@ -24,7 +24,7 @@ module reg_file(
             rf[0] <= 0;
         end
         else if (wren == `ENABLE && rd_addr != 0) begin
-            rf[rd_addr] <= reg_data;
+            rf[rd_addr] <= r_data;
         end
     end
     assign rs1 = rf[rs_addr1];
