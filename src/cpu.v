@@ -19,16 +19,27 @@ module cpu(
         case (alucode)
             `ALU_SB: begin
                 store_mask[0] = 1'b1;
+                store_mask[1] = 1'b0;
+                store_mask[2] = 1'b0;
+                store_mask[3] = 1'b0;
             end
             `ALU_SH: begin
                 store_mask[0] = 1'b1;
                 store_mask[1] = 1'b1;
+                store_mask[2] = 1'b0;
+                store_mask[3] = 1'b0;
             end
             `ALU_SW: begin
                 store_mask[0] = 1'b1;
                 store_mask[1] = 1'b1;
                 store_mask[2] = 1'b1;
                 store_mask[3] = 1'b1;
+            end
+            default begin
+                store_mask[0] = 1'b0;
+                store_mask[1] = 1'b0;
+                store_mask[2] = 1'b0;
+                store_mask[3] = 1'b0;
             end
         endcase
     endfunction

@@ -22,11 +22,11 @@ module data_mem(
         if (wren == `ENABLE)
             if (mask_buffer[0])
                 mem[w_addr][7:0] <= w_data[7:0];
-            else if (mask_buffer[1])
+            if (mask_buffer[1])
                 mem[w_addr][15:8] <= w_data[15:8];
-            else if (mask_buffer[2])
+            if (mask_buffer[2])
                 mem[w_addr][23:16] <= w_data[23:16];
-            else if (mask_buffer[3])
+            if (mask_buffer[3])
                 mem[w_addr][31:24] <= w_data[31:24];
         else if (is_load == `ENABLE)
             r_data <= mem[r_addr];
