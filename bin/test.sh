@@ -1,6 +1,6 @@
 #!/bin/bash
-read file
-case $file in
+read test_name
+case $test_name in
     decoder)
         iverilog src/decoder.v test/decoder_tb.v
         ./a.out
@@ -14,7 +14,7 @@ case $file in
         ./a.out
         ;;
     *)
-        echo "$file is not a correct option"
-        echo "You have decoder and alu options"
+        echo "$test_name is not a correct option"
+        echo "You have decoder & alu & cpu options"
         ;;
 esac
