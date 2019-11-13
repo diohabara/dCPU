@@ -8,7 +8,7 @@ module pc (
 
     always @(posedge clk) begin
         if (rst_n == `DISABLE)
-            pc <= 0;
+            pc <= 32'h8000;
         else if (br_taken == `ENABLE)
             pc <= pc + alu_result;
         else
