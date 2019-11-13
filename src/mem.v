@@ -1,4 +1,3 @@
-
 module mem(
     input clk,
     input [4:0] r_addr,
