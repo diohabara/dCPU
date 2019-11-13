@@ -17,6 +17,7 @@ module alu(
         op1_tmp = 0;
         op2_tmp = 0;
         res_tmp = 0;
+        isBranch = `DISABLE;
     end
 
     always @(*) begin
