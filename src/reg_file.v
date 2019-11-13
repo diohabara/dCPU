@@ -11,10 +11,11 @@ module reg_file(
     );
 
     reg [31:0] rf [0:31];
+    reg i;
 
     initial begin
         for (i = 0; i < 32; i = i + 1) begin
-            rf[i] = 0
+            rf[i] = 0;
         end
     end
 
