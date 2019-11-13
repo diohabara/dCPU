@@ -7,8 +7,10 @@ module mem(
     reg [31:0] addr_reg;
     reg [31:0] mem [0:`MAX_MEM];
 
-    initial
+    initial begin
+        addr_reg = 0;
         $readmemh("/home/denjo/Documents/process/dCPU/benchmarks/tests/ControlTransfer/code.hex", mem);
+    end
 
     always @(posedge clk) begin
         addr_reg <= r_addr;

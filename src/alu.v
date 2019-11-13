@@ -13,6 +13,12 @@ module alu(
     reg [31:0] res_tmp;
     reg isBranch;
 
+    initial begin
+        op1_tmp = 0;
+        op2_tmp = 0;
+        res_tmp = 0;
+    end
+
     always @(*) begin
         op1_tmp <= rs1;
         op2_tmp <= rs2;

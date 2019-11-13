@@ -25,6 +25,18 @@ module decoder (
     reg [31:0] imm32;
     reg [31:0] imm_tmp;
 
+    initial begin
+        rs1 = 0;
+        rs2 = 0;
+        rd = 0;
+        imm5 = 0;
+        imm12 = 0;
+        imm13 = 0;
+        imm21 = 0;
+        imm32 = 0;
+        imm_tmp = 0;
+    end
+
     always @(*) begin
         case (ins[6:0])
             `OPIMM: begin

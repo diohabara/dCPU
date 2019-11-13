@@ -10,6 +10,13 @@ module data_mem(
     );
 
     reg [31:0] mem [0:`MAX_D_MEM];
+    integer i;
+
+    initial begin
+        for (i = 0; i <= 31; i = i + 1) begin
+            mem[i] = 0;
+        end
+    end
 
     always @(posedge clk) begin
         if (wren == `ENABLE)
