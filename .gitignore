@@ -1,4 +1,10 @@
-./.vscode
-a.out
 *
-!*/.gitignore
+!.gitignore
+!/src/
+!/test/
+!/img/
+!/bin/
+!/benchmarks/
+!/benchmarks/*
+!/benchmarks/*/*
+!/benchmarks/*/*/*
