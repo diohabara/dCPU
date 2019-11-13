@@ -5,13 +5,13 @@ module cpu(
 
     wire [31:0] pc, ins, rs1, rs2, alu_result, imm, r_data;
     wire [5:0] alucode;
-    wire [4:0] rs_addr1, rs_addr2, rd_addr, r_addr_reg, w_addr_reg, br_addr;
+    wire [4:0] rs_addr1, rs_addr2, rd_addr, r_addr, w_addr, br_addr;
     wire [3:0] mask_buffer;
     wire [1:0] aluop1_type, aluop2_type;
     wire br_taken, wren, is_load, is_store, is_halt;
 
-    assign r_addr_reg = (is_load == `ENABLE) ? rs1 + imm : 0;
-    assign w_addr_reg = (is_store == `ENABLE) ? rs1 + imm : 0;
+    assign r_addr = (is_load == `ENABLE) ? rs1 + imm : 0;
+    assign w_addr = (is_store == `ENABLE) ? rs1 + imm : 0;
     assign mask_buffer = store_mask(alucode);
 
     function [3:0] store_mask;
@@ -104,8 +104,8 @@ module cpu(
         wren,
         is_load,
         mask_buffer,
-        r_addr_reg,
-        w_addr_reg,
+        r_addr,
+        w_addr,
         rs2,
         // output
         r_data
