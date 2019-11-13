@@ -12,6 +12,12 @@ module reg_file(
 
     reg [31:0] rf [0:31];
 
+    initial begin
+        for (i = 0; i < 32; i = i + 1) begin
+            rf[i] = 0
+        end
+    end
+
     always @(negedge rst_n or posedge clk) begin
         if (rst_n == `DISABLE) begin
             rf[0] <= 0;
