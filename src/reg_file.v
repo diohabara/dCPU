@@ -11,7 +11,7 @@ module reg_file(
     );
 
     reg [31:0] rf [0:31];
-    reg i;
+    integer i;
 
     initial begin
         for (i = 0; i < 32; i = i + 1) begin
