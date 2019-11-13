@@ -3,7 +3,7 @@ module pc (
     input rst_n,
     input br_taken,
     input [31:0] alu_result,
-    output reg [4:0] pc
+    output reg [31:0] pc
     );
 
     always @(posedge clk) begin
@@ -12,6 +12,6 @@ module pc (
         else if (br_taken == `ENABLE)
             pc <= pc + alu_result;
         else
-            pc <= pc + 4;
+            pc <= pc + 32'd4;
     end
 endmodule

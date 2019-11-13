@@ -1,10 +1,10 @@
 module mem(
     input clk,
-    input [4:0] r_addr,
+    input [31:0] r_addr,
     output [31:0] ins
     );
 
-    reg [4:0] addr_reg;
+    reg [31:0] addr_reg;
     reg [31:0] mem [0:`MAX_MEM];
 
     initial

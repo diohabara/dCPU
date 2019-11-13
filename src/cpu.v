@@ -3,9 +3,9 @@ module cpu(
     input rst_n
     );
 
-    wire [31:0] ins, rs1, rs2, alu_result, imm, reg_data;
+    wire [31:0] pc, ins, rs1, rs2, alu_result, imm, reg_data;
     wire [5:0] alucode;
-    wire [4:0] pc, rs_addr1, rs_addr2, rd_addr, r_addr_reg, w_addr_reg, br_addr;
+    wire [4:0] rs_addr1, rs_addr2, rd_addr, r_addr_reg, w_addr_reg, br_addr;
     wire [3:0] mask_buffer;
     wire [1:0] aluop1_type, aluop2_type;
     wire br_taken, wren, is_load, is_store, is_halt;
