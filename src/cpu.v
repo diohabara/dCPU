@@ -10,6 +10,10 @@ module cpu(
     wire [1:0] aluop1_type, aluop2_type;
     wire br_taken, wren, is_load, is_store, is_halt;
 
+    assign r_addr_reg = (is_load == `ENABLE) ? rs1 + imm : 0;
+    assign w_addr_reg = (is_store == `ENABLE) ? rs1 + imm : 0;
+    assign mask_buffer = store_mask(alucode);
+
     function [3:0] store_mask;
         input alucode;
         case (alucode)
@@ -83,9 +87,6 @@ module cpu(
         rs1,
         rs2
     );
-    assign r_addr_reg = (is_load == `ENABLE) ? rs1 + imm : 0;
-    assign w_addr_reg = (is_store == `ENABLE) ? rs1 + imm : 0;
-    assign mask_buffer = store_mask(alucode);
     data_mem dm_body(
         // input
         clk,
