@@ -9,7 +9,7 @@ module mem(
 
     initial begin
         reg_addr = 0;
-        $readmemh("/home/denjo/Documents/process/dCPU/benchmarks/tests/InRegImm/code.hex", mem);
+        $readmemh("/home/denjo/Documents/process/dCPU/benchmarks/tests/IntRegImm/code.hex", mem);
     end
 
     always @(posedge clk) begin
