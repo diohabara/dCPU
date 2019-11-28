@@ -13,7 +13,7 @@ module mem(
     end
 
     always @(posedge clk) begin
-        reg_addr <= r_addr;
+        reg_addr <= r_addr/4;
     end
     assign ins = mem[reg_addr];
 endmodule
