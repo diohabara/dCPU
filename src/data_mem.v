@@ -20,15 +20,47 @@ module data_mem(
 
     always @(posedge clk) begin
         if (wren == `ENABLE)
-            if (mask_buffer[0])
-                mem[w_addr][7:0] <= w_data[7:0];
-            if (mask_buffer[1])
-                mem[w_addr][15:8] <= w_data[15:8];
-            if (mask_buffer[2])
-                mem[w_addr][23:16] <= w_data[23:16];
-            if (mask_buffer[3])
-                mem[w_addr][31:24] <= w_data[31:24];
+            if (w_addr / 4 == 0) begin
+                if (mask_buffer[0])
+                    mem[w_addr / 4][7:0] <= w_data[7:0];
+                if (mask_buffer[1])
+                    mem[w_addr / 4][15:8] <= w_data[15:8];
+                if (mask_buffer[2])
+                    mem[w_addr / 4][23:16] <= w_data[23:16];
+                if (mask_buffer[3])
+                    mem[w_addr / 4][31:24] <= w_data[31:24];
+            else if (w_addr / 4 == 1) begin
+                if (mask_buffer[0])
+                    mem[w_addr / 4][15:8] <= w_data[7:0];
+                if (mask_buffer[1])
+                    mem[w_addr / 4][23:16] <= w_data[15:8];
+                if (mask_buffer[2])
+                    mem[w_addr / 4][31:24] <= w_data[23:16];
+                if (mask_buffer[3])
+                    mem[w_addr / 4 + 1][7:0] <= w_data[31:24];
+            end
+            else if (w_addr / 4 == 2) begin
+            end
+                if (mask_buffer[0])
+                    mem[w_addr / 4][23:16] <= w_data[7:0];
+                if (mask_buffer[1])
+                    mem[w_addr / 4][31:24] <= w_data[15:8];
+                if (mask_buffer[2])
+                    mem[w_addr / 4 + 1][7:0] <= w_data[23:16];
+                if (mask_buffer[3])
+                    mem[w_addr / 4 + 1][15:8] <= w_data[31:24];
+            else if (w_addr / 4 == 3) begin
+            end
+                if (mask_buffer[0])
+                    mem[w_addr / 4][31:24] <= w_data[7:0];
+                if (mask_buffer[1])
+                    mem[w_addr / 4 + 1][7:0] <= w_data[15:8];
+                if (mask_buffer[2])
+                    mem[w_addr / 4 + 1][15:8] <= w_data[23:16];
+                if (mask_buffer[3])
+                    mem[w_addr / 4 + 1][23:16] <= w_data[31:24];
         else if (is_load == `ENABLE)
             r_data <= mem[r_addr];
+        end
     end
 endmodule
