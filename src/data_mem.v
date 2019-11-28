@@ -39,7 +39,7 @@ module data_mem(
                 if (mask_buffer[3])
                     mem[w_addr/4 + 1][7:0] <= w_data[31:24];
             end
-            else if (w_addr / 4 == 2) begin
+            else if (w_addr/4 == 2) begin
             end
                 if (mask_buffer[0])
                     mem[w_addr/4][23:16] <= w_data[7:0];
